@@ -1,0 +1,205 @@
+/* =========================================================
+   eHEART GLOBAL RESPONSIVE PATCH
+   Load this file LAST, after every other stylesheet, on
+   every page (dashboard, heart_card, audit, history, users,
+   department_quota, system_settings, notifications, etc).
+   Every rule below is scoped inside a media query so it only
+   overrides at the breakpoint it targets, never on desktop.
+   Breakpoints match variables.css:
+     --eh-bp-desktop   1440px
+     --eh-bp-laptop-lg 1300px
+     --eh-bp-laptop    1100px
+     --eh-bp-tablet     900px
+     --eh-bp-mobile-lg  640px
+     --eh-bp-mobile     480px
+   ========================================================= */
+
+/* =====================================================================
+   MEDIA QUERIES
+   ===================================================================== */
+
+/* ---------- LAPTOP-LG (<=1300px) ---------- */
+@media (max-width: 1300px) {
+  .eh-dashboard-stat-grid.manager-grid,
+  .eh-dashboard-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .eh-core-value-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------- LAPTOP (<=1100px) ---------- */
+@media (max-width: 1100px) {
+  /* sidebar-driven layout */
+  .eh-layout-split.with-panel {
+    grid-template-columns: 1fr;
+  }
+
+  /* dashboard */
+  .eh-dashboard-stat-grid.manager-grid,
+  .eh-dashboard-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .eh-dashboard-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  .eh-core-value-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* topbar/profile trims itself before it wraps */
+  .eh-topbar {
+    padding: 0 var(--eh-space-4, 16px);
+  }
+}
+
+/* ---------- TABLET (<=900px) ---------- */
+@media (max-width: 900px) {
+  /* sidebar becomes an off-canvas drawer; main takes full width */
+  .eh-sidebar {
+    transform: translateX(-105%);
+  }
+  .eh-main {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .eh-mobile-sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .eh-topbar {
+    margin: 6px 6px 0 6px;
+  }
+
+  .eh-dashboard-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--eh-space-3, 12px);
+  }
+  .eh-dashboard-actions {
+    width: 100%;
+  }
+  .eh-dashboard-actions .eh-btn {
+    flex: 1 1 auto;
+  }
+
+  .eh-core-value-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .eh-stat-modal {
+    width: 100%;
+  }
+
+  /* heart card side panel drops below the table on tablet */
+  .eh-layout-split.with-panel.panel-open {
+    grid-template-columns: 1fr;
+  }
+  #requestPanel {
+    margin-top: var(--eh-space-4, 16px);
+  }
+
+  /* redemption stepper two-column steps collapse to one */
+  .eh-step3-content {
+    grid-template-columns: 1fr;
+  }
+  #step3,
+  #step4 {
+    max-height: none;
+    overflow: visible;
+  }
+
+  /* notifications page loses its fixed sidebar offset */
+  .eh-notif-page .eh-main,
+  .eh-main {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* ---------- MOBILE-LG (<=640px) ---------- */
+@media (max-width: 640px) {
+  .eh-content {
+    padding-left: var(--eh-space-3, 12px);
+    padding-right: var(--eh-space-3, 12px);
+  }
+
+  .eh-dashboard-stat-grid.manager-grid,
+  .eh-dashboard-stat-grid {
+    grid-template-columns: 1fr;
+  }
+  .eh-core-value-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .eh-quota-box {
+    flex-wrap: wrap;
+  }
+
+  .eh-panel-actions {
+    flex-direction: column;
+  }
+  .eh-panel-actions .eh-btn {
+    width: 100%;
+  }
+
+  .eh-notif-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .eh-notif-tabs {
+    width: fit-content;
+  }
+  .eh-notif-actions {
+    justify-content: flex-end;
+  }
+
+  .eh-stepper-label {
+    display: none;
+  }
+  .eh-step .eh-card-body {
+    padding: var(--eh-space-4, 16px);
+  }
+
+  .eh-guide-sidebar {
+    display: none;
+  }
+}
+
+/* ---------- MOBILE (<=480px) ---------- */
+@media (max-width: 480px) {
+  .eh-dashboard-stat {
+    padding: var(--eh-space-4, 16px);
+  }
+  .eh-dashboard-chart-card {
+    padding: var(--eh-space-4, 16px);
+  }
+  .eh-chart-container {
+    height: 240px;
+  }
+
+  .eh-topbar-title {
+    font-size: 14px;
+  }
+  .eh-topbar-actions {
+    gap: 5px;
+  }
+  .eh-topbar-profile-info,
+  .eh-topbar-profile-chevron {
+    display: none;
+  }
+
+  .eh-notif-page-date {
+    display: none;
+  }
+  .eh-notif-view {
+    display: none;
+  }
+
+  .eh-success-title,
+  .eh-release-title {
+    font-size: 17px !important;
+  }
+}

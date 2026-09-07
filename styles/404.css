@@ -1,0 +1,328 @@
+body.eh-not-found-body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(230, 49, 125, 0.14),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 85%,
+      rgba(230, 49, 125, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(135deg, var(--eh-bg), #fff);
+}
+
+.eh-not-found {
+  position: relative;
+  width: min(100%, 680px);
+  overflow: hidden;
+  border: 1px solid rgba(230, 49, 125, 0.12);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 24px 70px rgba(30, 20, 40, 0.12);
+  isolation: isolate;
+}
+
+.eh-not-found-content {
+  position: relative;
+  z-index: 2;
+  padding: 46px 42px 38px;
+  text-align: center;
+}
+
+.eh-not-found-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--eh-text);
+  font-size: 21px;
+  font-weight: var(--eh-fw-bold);
+}
+
+.eh-not-found-brand strong {
+  color: var(--eh-pink);
+}
+
+.eh-not-found-brand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--eh-pink), #f06292);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(230, 49, 125, 0.25);
+}
+
+.eh-not-found-brand-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.eh-not-found-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 26px 0 18px;
+}
+
+.eh-not-found-number {
+  font-size: clamp(5.5rem, 17vw, 8.5rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -7px;
+  background: linear-gradient(135deg, var(--eh-pink), #ff78a8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 10px 16px rgba(230, 49, 125, 0.12));
+}
+
+.eh-not-found-heart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(74px, 13vw, 106px);
+  height: clamp(74px, 13vw, 106px);
+  margin-top: 2px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--eh-pink), #ff7cab);
+  color: #fff;
+  box-shadow: 0 16px 32px rgba(230, 49, 125, 0.28);
+  transform: rotate(-8deg);
+  animation: eh-heart-pulse 2.4s ease-in-out infinite;
+}
+
+.eh-not-found-heart svg {
+  width: clamp(36px, 6vw, 50px);
+  height: clamp(36px, 6vw, 50px);
+  fill: currentColor;
+  stroke-width: 2.5;
+}
+
+.eh-not-found-divider {
+  width: 54px;
+  height: 4px;
+  margin: 22px auto;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--eh-pink), #ff8bb5);
+}
+
+.eh-not-found h1 {
+  margin: 0;
+  color: var(--eh-text);
+  font-size: clamp(1.55rem, 4vw, 2.15rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.eh-not-found p {
+  max-width: 480px;
+  margin: 12px auto 28px;
+  color: var(--eh-text-muted);
+  font-size: var(--eh-fs-base);
+  line-height: 1.7;
+}
+
+.eh-not-found-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.eh-not-found-home,
+.eh-not-found-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.eh-not-found-home {
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(230, 49, 125, 0.2);
+}
+
+.eh-not-found-back {
+  border: 1px solid var(--eh-border);
+  background: #fff;
+  color: var(--eh-text);
+}
+
+.eh-not-found-home:hover,
+.eh-not-found-back:hover {
+  transform: translateY(-2px);
+}
+
+.eh-not-found-back:hover {
+  background: var(--eh-bg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.eh-not-found-actions svg {
+  width: 17px;
+  height: 17px;
+}
+
+.eh-not-found-help {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  max-width: 470px;
+  margin: 30px auto 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--eh-border);
+  color: var(--eh-text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.eh-not-found-help svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--eh-pink);
+}
+
+.eh-not-found-glow {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.eh-not-found-glow-one {
+  width: 260px;
+  height: 260px;
+  top: -150px;
+  right: -100px;
+  background: rgba(230, 49, 125, 0.08);
+}
+
+.eh-not-found-glow-two {
+  width: 220px;
+  height: 220px;
+  bottom: -150px;
+  left: -100px;
+  background: rgba(230, 49, 125, 0.06);
+}
+
+.eh-not-found-shape {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--eh-pink);
+  opacity: 0.1;
+  pointer-events: none;
+  animation: eh-float 5s ease-in-out infinite;
+}
+
+.eh-not-found-shape-one {
+  top: 110px;
+  left: 38px;
+  transform: rotate(-18deg);
+}
+
+.eh-not-found-shape-two {
+  right: 42px;
+  bottom: 70px;
+  transform: rotate(20deg);
+  animation-delay: -2s;
+}
+
+.eh-not-found-shape svg {
+  width: 34px;
+  height: 34px;
+  fill: currentColor;
+}
+
+@keyframes eh-heart-pulse {
+  0%,
+  100% {
+    transform: rotate(-8deg) scale(1);
+  }
+  50% {
+    transform: rotate(-8deg) scale(1.06);
+  }
+}
+
+@keyframes eh-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -12px;
+  }
+}
+
+@media (max-width: 600px) {
+  body.eh-not-found-body {
+    padding: 16px;
+  }
+
+  .eh-not-found-content {
+    padding: 36px 22px 30px;
+  }
+
+  .eh-not-found-illustration {
+    gap: 4px;
+    margin-top: 24px;
+  }
+
+  .eh-not-found-number {
+    letter-spacing: -4px;
+  }
+
+  .eh-not-found p {
+    font-size: var(--eh-fs-sm);
+  }
+
+  .eh-not-found-actions {
+    flex-direction: column;
+  }
+
+  .eh-not-found-home,
+  .eh-not-found-back {
+    width: 100%;
+  }
+
+  .eh-not-found-help {
+    margin-top: 24px;
+    font-size: 11px;
+  }
+
+  .eh-not-found-shape-one {
+    left: 15px;
+  }
+
+  .eh-not-found-shape-two {
+    right: 15px;
+  }
+}

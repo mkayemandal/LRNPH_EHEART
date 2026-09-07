@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
+:root {
+  /* Brand */
+  --eh-pink: #e6317d;
+  --eh-pink-dark: #c21f65;
+  --eh-pink-light: #fce4ef;
+  --eh-pink-50: #fdf2f7;
+
+  /* Neutrals */
+  --eh-bg: #f5f5f7;
+  --eh-surface: #ffffff;
+  --eh-border: #e7e7ea;
+  --eh-text: #1f2024;
+  --eh-text-muted: #6b6d76;
+  --eh-text-faint: #9a9ca5;
+
+  /* Status */
+  --eh-success: #16a34a;
+  --eh-success-bg: #dcfce7;
+  --eh-warning: #d97706;
+  --eh-warning-bg: #fef3c7;
+  --eh-info: #2563eb;
+  --eh-info-bg: #dbeafe;
+  --eh-danger: #dc2626;
+  --eh-danger-bg: #fee2e2;
+
+  /* Typography */
+  --eh-font:
+    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --eh-fs-xs: 0.75rem;
+  --eh-fs-sm: 0.8125rem;
+  --eh-fs-base: 0.875rem;
+  --eh-fs-lg: 1rem;
+  --eh-fs-xl: 1.25rem;
+  --eh-fs-2xl: 1.5rem;
+  --eh-fw-regular: 400;
+  --eh-fw-medium: 500;
+  --eh-fw-semibold: 600;
+  --eh-fw-bold: 700;
+
+  /* Spacing scale */
+  --eh-space-1: 4px;
+  --eh-space-2: 8px;
+  --eh-space-3: 12px;
+  --eh-space-4: 16px;
+  --eh-space-5: 20px;
+  --eh-space-6: 24px;
+  --eh-space-8: 32px;
+
+  /* Radius */
+  --eh-radius-sm: 6px;
+  --eh-radius-md: 10px;
+  --eh-radius-lg: 14px;
+  --eh-radius-full: 999px;
+
+  /* Shadows */
+  --eh-shadow-sm: 0 1px 2px rgba(16, 16, 20, 0.06);
+  --eh-shadow-md: 0 4px 12px rgba(16, 16, 20, 0.08);
+  --eh-shadow-lg: 0 12px 32px rgba(16, 16, 20, 0.12);
+
+  /* Sidebar */
+  --eh-sidebar-width: 238px;
+  --eh-sidebar-collapsed-width: 72px;
+  --eh-sidebar-left: 8px;
+  --eh-sidebar-gap: 14px;
+  --eh-topbar-height: 64px;
+
+  /* =========================================================
+     RESPONSIVE BREAKPOINT TOKENS
+     Used as reference values inside media queries throughout
+     the app. CSS custom properties cannot be used as the
+     condition of a media query, but keeping the numbers here
+     means every stylesheet references the same scale instead
+     of scattering random pixel values.
+     ========================================================= */
+  --eh-bp-mobile: 480px; /* small phones            */
+  --eh-bp-mobile-lg: 640px; /* large phones            */
+  --eh-bp-tablet: 900px; /* tablets / small laptops */
+  --eh-bp-laptop: 1100px; /* laptops                 */
+  --eh-bp-laptop-lg: 1300px; /* small desktops        */
+  --eh-bp-desktop: 1440px; /* large desktops          */
+
+  /* Fluid control sizing — filters/inputs shrink with the
+     viewport instead of holding a fixed px width. */
+  --eh-control-h: 38px;
+  --eh-filter-min-w: 96px;
+  --eh-filter-max-w: 190px;
+  --eh-search-min-w: 140px;
+  --eh-search-max-w: 260px;
+}

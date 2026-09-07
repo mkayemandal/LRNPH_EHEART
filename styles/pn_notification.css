@@ -1,0 +1,332 @@
+/* =========================================================
+   eHeart PN Notification Container
+   ========================================================= */
+
+#eheart-pn-notifications {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 560px;
+  max-width: calc(100vw - 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 2147483647;
+  pointer-events: none;
+}
+
+#eheart-pn-notifications::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: -1;
+  pointer-events: auto;
+}
+
+/* =========================================================
+   Notification Popup
+   ========================================================= */
+
+.eheart-pn-notification {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  pointer-events: auto;
+  background: #ffffff;
+  border: 1px solid #f3d7e2;
+  border-radius: 22px;
+  padding: 24px 24px 20px;
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.3),
+    0 8px 20px rgba(0, 0, 0, 0.15);
+  animation: eheartNotificationIn 0.25s ease-out;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* =========================================================
+   Close Button
+   ========================================================= */
+
+.eheart-pn-notification-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #999999;
+  font-size: 18px;
+  line-height: 26px;
+  cursor: pointer;
+}
+
+.eheart-pn-notification-close:hover {
+  background: #f3f4f6;
+  color: #333333;
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+
+.eheart-pn-notification-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-right: 20px;
+}
+
+.eheart-pn-notification-icon {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #ec1876;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.eheart-pn-notification-icon svg {
+  display: block;
+}
+
+.eheart-pn-notification-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.eheart-pn-notification-eyebrow {
+  color: #ec1876;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.eheart-pn-notification-title {
+  margin: 0;
+  color: #1f1f1f;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.eheart-pn-notification-subtitle {
+  margin: 0;
+  color: #666666;
+  font-size: 13px;
+}
+
+/* =========================================================
+   Body
+   ========================================================= */
+
+.eheart-pn-notification-body {
+  margin-top: 14px;
+  color: #4b4b4b;
+  font-size: 13.5px;
+  line-height: 1.6;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+.eheart-pn-sender {
+  color: #ec1876;
+  font-weight: 700;
+}
+
+/* =========================================================
+   Control number + big QR row
+   ========================================================= */
+
+.eheart-pn-control-row {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.eheart-pn-notification-control {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  background: #fff0f5;
+  border: 1px solid #fbd3e2;
+}
+
+.eheart-pn-notification-control-label-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eheart-pn-notification-box-icon svg {
+  display: block;
+}
+
+.eheart-pn-notification-box-label {
+  color: #6b6b6b;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.eheart-pn-notification-box-value {
+  color: #ec1876;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.eheart-pn-notification-qr {
+  flex-shrink: 0;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #fafafa;
+  border: 1px solid #eee;
+}
+
+.eheart-pn-qr-image {
+  width: 126px;
+  height: 126px;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.eheart-pn-qr-caption {
+  color: #6b6b6b;
+  font-size: 9px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.eheart-pn-qr-error {
+  font-size: 9px;
+  text-align: center;
+}
+
+/* =========================================================
+   HR reminder box
+   ========================================================= */
+
+.eheart-pn-notification-hr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f2fbf6;
+  border: 1px solid #d6f0e2;
+}
+
+/* =========================================================
+   Footer (short inspiring note + mark as read)
+   ========================================================= */
+
+.eheart-pn-notification-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #f1e3e9;
+  flex-wrap: wrap;
+}
+
+.eheart-pn-notification-footer-msg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b6b6b;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.eheart-pn-notification-footer-heart {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.eheart-pn-notification-footer-heart svg {
+  display: block;
+}
+
+.eheart-pn-notification-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  border: 0;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #ec1876;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 6px 14px rgba(236, 24, 118, 0.35);
+}
+
+.eheart-pn-notification-read:hover {
+  background: #d4126a;
+}
+
+/* =========================================================
+   Popup Animation
+   ========================================================= */
+
+@keyframes eheartNotificationIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================================
+   Mobile
+   ========================================================= */
+
+@media (max-width: 640px) {
+  #eheart-pn-notifications {
+    width: calc(100vw - 32px);
+    max-width: none;
+  }
+
+  .eheart-pn-control-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .eheart-pn-notification-qr {
+    width: auto;
+  }
+}

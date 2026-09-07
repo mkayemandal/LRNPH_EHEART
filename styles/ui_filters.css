@@ -1,0 +1,1051 @@
+/* =========================================================
+   eHEART REUSABLE FILTER UI — responsive rework
+   All media queries live at the BOTTOM of this file.
+   Sizes use clamp()/min()/vars from variables.css so filters
+   shrink smoothly with the viewport instead of overflowing.
+   ========================================================= */
+
+:root {
+  --eh-flt-accent: #db2777;
+  --eh-flt-accent-soft: #fdf2f8;
+  --eh-flt-accent-dark: #be185d;
+  --eh-flt-border: #e2e8f0;
+  --eh-flt-border-soft: #f1f5f9;
+  --eh-flt-ink: #0f172a;
+  --eh-flt-muted: #64748b;
+  --eh-flt-faint: #94a3b8;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.eh-table-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--eh-space-2);
+  row-gap: var(--eh-space-2);
+  padding: var(--eh-space-4) var(--eh-space-5);
+  background: #ffffff;
+  border-bottom: 1px solid var(--eh-flt-border-soft);
+}
+
+.eh-table-toolbar > .eh-search,
+.eh-table-toolbar > .eh-search-wrap,
+.eh-table-toolbar > .eh-filter-group {
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.eh-filter-group {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--eh-space-2);
+  min-width: 0;
+}
+
+.eh-filter-group > * {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Buttons never stretch — only the search/filter/date inputs grow to
+   fill whatever space is left beside the (left-pinned) page title. */
+.eh-filter-group > .eh-btn,
+.eh-filter-group > button.eh-btn {
+  flex: 0 0 auto;
+}
+
+.eh-toolbar-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--eh-space-2);
+  flex-wrap: wrap;
+}
+
+.eh-toolbar-actions .eh-btn {
+  height: var(--eh-control-h);
+  padding: 0 var(--eh-space-3);
+  border-radius: var(--eh-radius-md);
+}
+
+.eh-toolbar-actions .eh-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+#exportDataBtn svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* =========================================================
+   BADGE
+   ========================================================= */
+
+.eh-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--eh-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+}
+.eh-badge-green {
+  background: #dcfce7;
+  color: #15803d;
+}
+.eh-badge-teal {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+.eh-badge-yellow {
+  background: #fef9c3;
+  color: #a16207;
+}
+.eh-badge-amber {
+  background: #fef3c7;
+  color: #b45309;
+}
+.eh-badge-red {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.eh-badge-rose {
+  background: #ffe4e6;
+  color: #be123c;
+}
+.eh-badge-blue {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.eh-badge-indigo {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+.eh-badge-gray {
+  background: #e5e7eb;
+  color: #374151;
+}
+.eh-badge-purple {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+.eh-badge-cyan {
+  background: #cffafe;
+  color: #0e7490;
+}
+.eh-badge-emerald {
+  background: #d1fae5;
+  color: #047857;
+}
+.eh-badge-orange {
+  background: #ffedd5;
+  color: #c2410c;
+}
+.eh-badge-lime {
+  background: #ecfccb;
+  color: #4d7c0f;
+}
+.eh-badge-slate {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* =========================================================
+   SEARCH — fluid width, never wider than needed, never
+   narrower than usable on a small phone.
+   ========================================================= */
+
+.eh-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 var(--eh-search-min-w);
+  width: clamp(var(--eh-search-min-w), 22vw, var(--eh-search-max-w));
+  max-width: 100%;
+  height: var(--eh-control-h);
+  box-sizing: border-box;
+  background: #f8fafc;
+  border: 1px solid var(--eh-flt-border);
+  border-radius: var(--eh-radius-md);
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.eh-search:hover {
+  border-color: #cbd5e1;
+}
+
+.eh-search:focus-within {
+  border-color: var(--eh-flt-accent);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.1);
+}
+
+.eh-search-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--eh-flt-faint);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.eh-search-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+.eh-search:focus-within .eh-search-icon {
+  color: var(--eh-flt-accent);
+}
+
+.eh-search-input {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 var(--eh-space-3) 0 2rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--eh-flt-ink);
+  font-family: inherit;
+  font-size: var(--eh-fs-sm);
+  min-width: 0;
+}
+
+.eh-search-input::placeholder {
+  color: var(--eh-flt-faint);
+}
+.eh-search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.eh-search-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--eh-flt-faint);
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.eh-search-clear.visible {
+  display: flex;
+}
+.eh-search-clear:hover {
+  background: #f1f5f9;
+  color: #475569;
+}
+.eh-search-clear svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* =========================================================
+   FILTER DROPDOWN — fluid width via clamp, no fixed min-width
+   ========================================================= */
+
+.eh-filter {
+  position: relative;
+  flex: 1 1 var(--eh-filter-min-w);
+  width: clamp(var(--eh-filter-min-w), 14vw, var(--eh-filter-max-w));
+  max-width: 100%;
+  min-width: 0;
+}
+
+.eh-filter-select {
+  width: 100%;
+  height: var(--eh-control-h);
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  padding: 0.5rem 1.8rem 0.5rem 0.7rem;
+  border: 1.5px solid var(--eh-flt-border);
+  border-radius: var(--eh-radius-md);
+  background: #f8fafc;
+  color: var(--eh-flt-ink);
+  font-family: inherit;
+  font-size: var(--eh-fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.1s ease;
+}
+
+.eh-filter-select:hover {
+  border-color: var(--eh-flt-accent);
+  background-color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(219, 39, 119, 0.12);
+}
+
+.eh-filter-select:focus {
+  border-color: var(--eh-flt-accent);
+  box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.14);
+}
+
+.eh-filter-select option {
+  padding: 10px 12px;
+  background: #ffffff;
+  color: var(--eh-flt-ink);
+  font-weight: 600;
+}
+
+.eh-filter-select option:checked,
+.eh-filter-select option:hover {
+  background: var(--eh-flt-accent) !important;
+  color: #ffffff !important;
+}
+
+.eh-filter-chevron {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-50%);
+  color: var(--eh-flt-faint);
+  pointer-events: none;
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.eh-filter:focus-within .eh-filter-chevron {
+  color: var(--eh-flt-accent);
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.eh-filter:hover .eh-filter-chevron {
+  color: var(--eh-flt-accent);
+}
+
+/* =========================================================
+   DATE RANGE — single popup calendar, one input box, fluid
+   ========================================================= */
+
+.eh-date-range {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--eh-space-2);
+  flex: 1 1 var(--eh-filter-min-w);
+  min-width: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.eh-date-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1 1 auto;
+  width: clamp(150px, 18vw, 200px);
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+}
+
+.eh-date-field:hover,
+.eh-date-field:focus-within {
+  border: none;
+  box-shadow: none;
+}
+
+.eh-date-label {
+  position: static;
+  font-size: 0.64rem;
+  font-weight: 800;
+  color: var(--eh-flt-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  padding-left: 2px;
+}
+
+.eh-date-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.eh-date-input-icon {
+  position: absolute;
+  right: 10px;
+  width: 14px;
+  height: 14px;
+  color: var(--eh-flt-faint);
+  pointer-events: none;
+}
+
+.eh-date-input {
+  width: 100%;
+  height: var(--eh-control-h);
+  box-sizing: border-box;
+  padding: 0.5rem 2rem 0.5rem 0.6rem;
+  border: 1.5px solid var(--eh-flt-border);
+  border-radius: var(--eh-radius-md);
+  background: #f8fafc;
+  color: var(--eh-flt-ink);
+  font-family: inherit;
+  font-size: var(--eh-fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.1s ease;
+}
+
+.eh-date-input:hover {
+  border-color: var(--eh-flt-accent);
+  background-color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(219, 39, 119, 0.12);
+}
+
+.eh-date-input:focus {
+  outline: none;
+  border-color: var(--eh-flt-accent);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.14);
+}
+
+/* =========================================================
+   CUSTOM DROPDOWN LIST (replaces native <select> options)
+   ========================================================= */
+.eh-field .eh-filter {
+  width: 100%;
+  max-width: 100%;
+  flex: none;
+}
+
+.eh-filter,
+.eh-dropdown {
+  position: relative;
+}
+
+.eh-filter-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.eh-filter-select-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.eh-filter.eh-filter-active .eh-filter-select {
+  border-color: var(--eh-flt-accent);
+  background-color: var(--eh-flt-accent-soft);
+  color: var(--eh-flt-accent);
+}
+
+.eh-filter-chevron {
+  flex-shrink: 0;
+  transition:
+    transform 0.15s ease,
+    color 0.15s ease;
+}
+
+.eh-filter.open .eh-filter-chevron {
+  transform: rotate(180deg);
+  color: var(--eh-flt-accent);
+}
+
+.eh-filter-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: max-content;
+  min-width: 100%;
+  max-width: min(340px, 90vw); /* wider, fit long names */
+  max-height: 320px; /* taller, more rows visible */
+  overflow-y: auto;
+  overflow-x: hidden; /* kill sideways scrollbar */
+  white-space: normal; /* let long text wrap instead */
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid var(--eh-flt-border);
+  border-radius: var(--eh-radius-lg);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.14);
+  z-index: 100;
+  display: none;
+}
+
+.eh-filter-dropdown.open {
+  display: block;
+  animation: eh-dropdown-in 0.12s ease;
+}
+
+.eh-filter-dropdown li {
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--eh-flt-ink);
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
+}
+
+.eh-filter-dropdown li:hover {
+  background: var(--eh-flt-accent-soft);
+  color: var(--eh-flt-accent-dark);
+}
+
+.eh-filter-dropdown li.selected {
+  background: var(--eh-flt-accent);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* =========================================================
+   EMPLOYEE SUGGESTION ITEM — with photo
+   ========================================================= */
+
+.eh-employee-suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.eh-employee-suggestion-item:hover,
+.eh-employee-suggestion-item:focus {
+  background: var(--eh-flt-accent-soft);
+  outline: none;
+}
+
+.eh-employee-suggestion-photo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--eh-flt-border);
+}
+
+.eh-employee-suggestion-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.eh-employee-suggestion-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--eh-flt-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eh-employee-suggestion-department {
+  font-size: 0.72rem;
+  color: var(--eh-flt-muted);
+}
+
+/* =========================================================
+   CUSTOM CALENDAR POPUP
+   ========================================================= */
+
+.eh-date-range.open .eh-date-field:has(input:focus) .eh-date-input,
+.eh-date-input:focus {
+  border-color: var(--eh-flt-accent);
+  box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.14);
+}
+
+.eh-calendar-popup {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(300px, calc(100vw - 16px));
+  max-width: calc(100vw - 16px);
+  background: #ffffff;
+  border: 1px solid var(--eh-flt-border);
+  border-radius: var(--eh-radius-lg);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16);
+  padding: var(--eh-space-4);
+  z-index: 70;
+}
+
+.eh-calendar-popup.open {
+  display: block;
+  animation: eh-dropdown-in 0.12s ease;
+}
+
+.eh-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.eh-cal-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--eh-flt-ink);
+}
+
+.eh-cal-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.eh-cal-nav-btn {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--eh-flt-border);
+  border-radius: 8px;
+  background: #f8fafc;
+  color: var(--eh-flt-muted);
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease,
+    color 0.12s ease;
+}
+
+.eh-cal-nav-btn:hover {
+  background: var(--eh-flt-accent-soft);
+  border-color: var(--eh-flt-accent);
+  color: var(--eh-flt-accent);
+}
+
+.eh-cal-nav-btn i {
+  width: 13px;
+  height: 13px;
+}
+
+.eh-cal-preview {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--eh-flt-muted);
+  background: var(--eh-flt-accent-soft);
+  border-radius: 8px;
+  padding: 6px 8px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.eh-cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.eh-cal-weekdays span {
+  text-align: center;
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--eh-flt-faint);
+  text-transform: uppercase;
+}
+
+.eh-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.eh-cal-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--eh-flt-ink);
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
+}
+
+.eh-cal-day:hover {
+  background: var(--eh-flt-accent-soft);
+  color: var(--eh-flt-accent-dark);
+}
+.eh-cal-day-muted {
+  color: #e2e8f0;
+  cursor: default;
+  pointer-events: none;
+}
+.eh-cal-day-today {
+  border: 1.5px solid var(--eh-flt-accent);
+  color: var(--eh-flt-accent);
+  font-weight: 800;
+}
+.eh-cal-day-inrange {
+  background: var(--eh-flt-accent-soft);
+  border-radius: 0;
+}
+.eh-cal-day-selected {
+  background: var(--eh-flt-accent) !important;
+  color: #ffffff !important;
+  font-weight: 800;
+}
+
+.eh-cal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--eh-flt-border-soft);
+  flex-wrap: wrap;
+}
+
+.eh-cal-footer-btn {
+  border: none;
+  background: transparent;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--eh-flt-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.eh-cal-footer-btn:hover {
+  background: var(--eh-flt-border-soft);
+}
+.eh-cal-footer-btn-accent {
+  color: var(--eh-flt-accent);
+}
+.eh-cal-footer-btn-accent:hover {
+  background: var(--eh-flt-accent-soft);
+}
+
+.eh-cal-footer-btn-apply {
+  border: none;
+  background: var(--eh-flt-accent);
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    opacity 0.12s ease;
+  margin-left: auto;
+}
+
+.eh-cal-footer-btn-apply:hover {
+  background: var(--eh-flt-accent-dark);
+}
+.eh-cal-footer-btn-apply:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+@keyframes eh-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   CLEAR ALL FILTERS BUTTON
+   ========================================================= */
+
+.eh-clear-filters-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  height: var(--eh-control-h);
+  box-sizing: border-box;
+  padding: 0 var(--eh-space-3);
+  border: 1.5px solid var(--eh-flt-border);
+  border-radius: var(--eh-radius-md);
+  background: #ffffff;
+  color: var(--eh-flt-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.12s ease;
+}
+
+.eh-clear-filters-btn i {
+  width: 14px;
+  height: 14px;
+}
+
+.eh-clear-filters-btn:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+.eh-clear-filters-btn:active {
+  transform: translateY(0);
+}
+.eh-clear-filters-btn:not(.hidden) {
+  animation: eh-clear-in 0.16s ease-out;
+}
+
+@keyframes eh-clear-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.eh-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 3.5rem 1rem;
+  text-align: center;
+}
+
+.eh-empty-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--eh-radius-full);
+  background: #fdf2f8;
+  color: #db2777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.eh-empty-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+.eh-empty-text {
+  font-size: 0.74rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* =========================================================
+   CORE VALUES PICKER
+   ========================================================= */
+
+.eh-cv-picker {
+  width: 100%;
+}
+.eh-cv-picker .eh-filter-select {
+  width: 100%;
+}
+.eh-cv-picker .eh-filter-dropdown {
+  width: 100%;
+}
+
+/* =====================================================================
+   ============================  MEDIA QUERIES  =======================
+   All breakpoints below. Keep every @media rule in this block only —
+   do not add scattered @media elsewhere in this file.
+   Reference scale (see variables.css):
+     mobile     <= 480px
+     mobile-lg  <= 640px
+     tablet     <= 900px
+     laptop     <= 1100px
+     laptop-lg  <= 1300px
+   ===================================================================== */
+
+/* LAPTOP-LG: start shrinking gracefully before the stacked layout kicks in */
+@media (max-width: 1300px) {
+  .eh-search {
+    flex-basis: 200px;
+  }
+  .eh-filter {
+    flex-basis: 110px;
+  }
+  .eh-date-field {
+    width: clamp(140px, 20vw, 170px);
+  }
+}
+
+/* LAPTOP: title stays left at its natural size; search/filters/date
+   grow to fill the remaining row width, wrapping only if truly out
+   of room — never forced into a stacked column here. */
+@media (max-width: 1100px) {
+  .eh-table-toolbar {
+    flex-wrap: wrap;
+    row-gap: var(--eh-space-2);
+  }
+  .eh-search {
+    flex: 1 1 170px;
+  }
+  .eh-filter-group {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .eh-filter {
+    flex: 1 1 130px;
+  }
+  .eh-date-field {
+    flex: 1 1 150px;
+  }
+}
+
+/* TABLET: search sits left of the filters, filters/date/buttons continue
+   side by side on the same line, growing to span the full remaining
+   width next to the (left-pinned, natural-size) title. */
+@media (max-width: 900px) {
+  .eh-table-toolbar {
+    padding: var(--eh-space-3) var(--eh-space-4);
+    align-items: center;
+  }
+  .eh-search {
+    flex: 1 1 140px;
+  }
+  .eh-filter {
+    flex: 1 1 110px;
+  }
+  .eh-date-field {
+    flex: 1 1 130px;
+  }
+}
+
+/* MOBILE-LG: everything full width, one control per row */
+@media (max-width: 640px) {
+  .eh-filter-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .eh-filter {
+    width: 100%;
+    flex-basis: auto;
+  }
+  .eh-date-range {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .eh-date-field {
+    width: 100%;
+    flex-basis: auto;
+  }
+  .eh-clear-filters-btn {
+    width: 100%;
+  }
+  .eh-calendar-popup {
+    left: 0;
+    right: 0;
+    width: auto;
+  }
+  .eh-toolbar-actions {
+    width: 100%;
+  }
+  .eh-toolbar-actions .eh-btn {
+    flex: 1 1 auto;
+  }
+  .eh-search {
+    width: 100%;
+    flex-basis: auto;
+  }
+}
+
+/* MOBILE: tighten paddings/text further for very small phones */
+@media (max-width: 480px) {
+  .eh-table-toolbar {
+    padding: var(--eh-space-3);
+    gap: var(--eh-space-2);
+  }
+  .eh-search-input,
+  .eh-filter-select,
+  .eh-date-input,
+  .eh-clear-filters-btn {
+    font-size: 0.72rem;
+  }
+  .eh-cal-day {
+    height: 26px;
+    font-size: 0.7rem;
+  }
+  .eh-cal-footer {
+    justify-content: center;
+  }
+  .eh-cal-footer-btn-apply {
+    margin-left: 0;
+    width: 100%;
+    order: 3;
+  }
+}

@@ -1,0 +1,1315 @@
+/* ========================================================= STEPPER INDICATOR ========================================================= */
+.eh-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--eh-space-3, 12px);
+  max-width: 650px;
+  margin: 0 auto var(--eh-space-6, 32px);
+}
+.eh-stepper-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--eh-text-muted, #98a2b3);
+}
+.eh-stepper-circle {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e4e7ec;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+.eh-stepper-node.active .eh-stepper-circle {
+  background: var(--eh-primary, #e91e8c);
+  box-shadow: 0 6px 16px rgba(233, 30, 140, 0.22);
+}
+.eh-stepper-node.done .eh-stepper-circle {
+  background: var(--eh-primary, #e91e8c);
+  opacity: 0.65;
+}
+.eh-stepper-node.active .eh-stepper-label {
+  color: var(--eh-primary, #e91e8c);
+  font-weight: 700;
+}
+.eh-stepper-label {
+  font-size: 11px;
+  white-space: nowrap;
+}
+.eh-stepper-line {
+  flex: 1;
+  height: 2px;
+  margin-bottom: 20px;
+  background: #eaecf0;
+}
+/* ========================================================= GENERAL STEP ========================================================= */
+.eh-step {
+  font-family: var(--eh-font);
+  max-width: 720px;
+  margin: 0 auto;
+  animation: ehStepFade 0.3s ease;
+}
+.eh-step-search,
+.eh-step-success {
+  max-width: 620px;
+}
+.eh-step .eh-card-body {
+  padding: 30px;
+}
+@keyframes ehStepFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.eh-step-title {
+  margin: 0;
+  color: #1d2939;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.eh-step-sub {
+  margin-top: -8px;
+  margin-bottom: 16px;
+  color: var(--eh-text-muted, #8a8a8a);
+  font-size: 13px;
+  text-align: center;
+}
+.eh-label {
+  font-weight: 600;
+}
+.eh-error {
+  min-height: 16px;
+  margin-top: 8px;
+  color: #d92d20;
+  font-size: 12px;
+}
+/* ========================================================= STEP 1 - SEARCH ========================================================= */
+.eh-step-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.eh-step-icon {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 16px;
+  font-size: 25px;
+}
+.eh-search-step-icon {
+  background: #fdf1f6;
+  color: var(--eh-primary, #e91e8c);
+  box-shadow: 0 6px 16px rgba(233, 30, 140, 0.08);
+}
+.eh-step-heading-content {
+  flex: 1;
+}
+.eh-step-kicker {
+  margin-bottom: 4px;
+  color: var(--eh-primary, #e91e8c);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.eh-step-heading .eh-step-title {
+  text-align: left;
+}
+.eh-step-description {
+  margin-top: 5px;
+  color: var(--eh-text-muted, #8a8a8a);
+  font-size: 12px;
+}
+/* SEARCH MODE */
+.eh-search-mode-card {
+  padding: 18px;
+  margin-bottom: 18px;
+  background: #fafafa;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+}
+.eh-search-mode-label {
+  margin-bottom: 12px;
+  color: #667085;
+  font-size: 11px;
+  font-weight: 700;
+}
+.eh-search-toggle {
+  display: flex;
+  gap: 10px;
+}
+.eh-toggle-btn {
+  flex: 1;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  color: #667085;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.eh-toggle-btn:hover {
+  background: #fff7fb;
+  border-color: var(--eh-primary, #e91e8c);
+  transform: translateY(-1px);
+}
+.eh-toggle-btn.active {
+  background: var(--eh-primary, #e91e8c);
+  border-color: var(--eh-primary, #e91e8c);
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(233, 30, 140, 0.18);
+}
+.eh-toggle-icon {
+  font-size: 15px;
+}
+/* SEARCH INPUT */
+.eh-search-input-card {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+}
+.eh-search-input-card .eh-label {
+  display: block;
+  margin-bottom: 8px;
+}
+.eh-inline-search {
+  display: flex;
+  gap: 10px;
+}
+.eh-search-input-wrap {
+  position: relative;
+  flex: 1;
+}
+.eh-search-input-wrap .eh-input {
+  width: 100%;
+  height: 48px;
+  padding-left: 42px;
+  border-radius: 12px;
+}
+.eh-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #98a2b3;
+  font-size: 18px;
+  pointer-events: none;
+}
+.eh-search-btn {
+  min-width: 125px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+}
+.eh-btn-arrow {
+  font-size: 18px;
+}
+.eh-search-hint {
+  margin-top: 10px;
+  color: #98a2b3;
+  font-size: 10px;
+}
+/* ========================================================= STEP 2 - VERIFY ========================================================= */
+.eh-verify-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.eh-verified-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eh-check-circle {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #12b76a;
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 6px 14px rgba(18, 183, 106, 0.18);
+}
+.eh-verified-title {
+  color: #1d2939;
+  font-size: 18px;
+  font-weight: 700;
+}
+.eh-verified-subtitle {
+  margin-top: 3px;
+  color: #8a8a8a;
+  font-size: 12px;
+}
+.eh-step-number-badge {
+  padding: 7px 12px;
+  background: #fdf1f6;
+  border-radius: 999px;
+  color: var(--eh-primary, #e91e8c);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  white-space: nowrap;
+}
+/* SECTION HEADINGS */
+.eh-info-section {
+  margin-bottom: 24px;
+}
+.eh-section-heading {
+  margin-bottom: 14px;
+}
+.eh-section-title {
+  color: #1d2939;
+  font-size: 14px;
+  font-weight: 700;
+}
+.eh-section-subtitle {
+  margin-top: 3px;
+  color: #8a8a8a;
+  font-size: 11px;
+}
+/* EMPLOYEE PROFILE */
+.eh-employee-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  background: linear-gradient(135deg, #ffffff 0%, #fff8fc 100%);
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+}
+.eh-avatar {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 18px;
+  background: var(--eh-primary, #e91e8c);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(233, 30, 140, 0.2);
+}
+.eh-employee-main {
+  flex: 1;
+  min-width: 0;
+}
+.eh-employee-name {
+  margin-bottom: 10px;
+  color: #1d2939;
+  font-size: 17px;
+  font-weight: 700;
+}
+.eh-employee-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.eh-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.eh-meta-label {
+  color: #98a2b3;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.eh-meta-item strong {
+  color: #475467;
+  font-size: 12px;
+}
+.eh-meta-divider {
+  width: 1px;
+  height: 28px;
+  background: #e4e7ec;
+}
+.eh-verified-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: center;
+  line-height: 1;
+
+  padding: 7px 11px;
+  background: #ecfdf3;
+  border-radius: 999px;
+  color: #12b76a;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.eh-verified-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex: 0 0 16px;
+  line-height: 0;
+}
+.eh-verified-icon i,
+.eh-verified-icon svg {
+  display: block;
+  width: 13px;
+  height: 13px;
+  margin: 1.5px;
+}
+/* HEART CARD */
+.eh-heart-card-section {
+  padding-top: 4px;
+}
+.eh-heart-card-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 18px;
+}
+.eh-hc-card {
+  position: relative;
+  min-height: 175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1c1c1f 0%, #393940 100%);
+  border-radius: 18px;
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+.eh-hc-card::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: -80px;
+  right: -80px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+.eh-hc-card-top,
+.eh-hc-card-bottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.eh-hc-mini-label {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.eh-hc-heart {
+  color: var(--eh-primary, #e91e8c);
+  font-size: 20px;
+}
+.eh-hc-card-center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.eh-hc-brand {
+  font-size: 22px;
+  font-weight: 700;
+}
+.eh-hc-card-bottom {
+  align-items: flex-end;
+}
+.eh-hc-card-bottom span {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 8px;
+  letter-spacing: 0.8px;
+}
+.eh-hc-code {
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+/* HEART CARD DETAILS */
+.eh-hc-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.eh-detail-box {
+  min-height: 48px;
+  padding: 11px 14px;
+  background: #fafafa;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+}
+.eh-detail-label {
+  display: block;
+  margin-bottom: 4px;
+  color: #98a2b3;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.eh-detail-box strong,
+.eh-detail-box > div {
+  color: #344054;
+  font-size: 13px;
+}
+.eh-status-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #d1fadf;
+  border-radius: 999px;
+  color: #12b76a;
+  font-size: 10px;
+  font-weight: 700;
+}
+.eh-status-pill.status-pending,
+.eh-status-pill.status-for_revision {
+  background: #fdf1d6;
+  color: #b8860b;
+}
+.eh-status-pill.status-approved,
+.eh-status-pill.status-active {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+.eh-status-pill.status-rejected,
+.eh-status-pill.status-cancelled,
+.eh-status-pill.status-expired {
+  background: #fbe4e4;
+  color: #c0392b;
+}
+.eh-status-pill.status-for_redemption {
+  background: #fce7f3;
+  color: #db2777;
+}
+.eh-status-pill.status-redeemed {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+/* VALIDATION */
+.eh-validation-section {
+  margin-top: 26px;
+  padding: 18px;
+  background: #fafafa;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+}
+.eh-validation-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.eh-validation-icon {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #fdf1f6;
+  color: var(--eh-primary, #e91e8c);
+  font-weight: 700;
+}
+.eh-validation-title {
+  color: #344054;
+  font-size: 13px;
+  font-weight: 700;
+}
+.eh-validation-subtitle {
+  margin-top: 2px;
+  color: #98a2b3;
+  font-size: 10px;
+}
+.eh-validation-section .eh-textarea {
+  min-height: 90px;
+  background: #fff;
+}
+.eh-step-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+.eh-verify-actions {
+  padding-top: 18px;
+  border-top: 1px solid #eaecf0;
+  margin-top: 22px;
+}
+.eh-proceed-btn {
+  min-width: 205px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 12px;
+}
+/* ========================================================= STEP 3 - RELEASE GIFT CERTIFICATE DESKTOP: TWO COLUMN / NO SCROLL ========================================================= */
+#step3 {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+  max-height: calc(100vh - 185px);
+  overflow: hidden;
+}
+#step3 > .eh-card-body {
+  padding: 24px 28px !important;
+}
+/* STEP 3 HEADER */
+#step3 .eh-release-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+#step3 .eh-release-icon {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: #fdf1f6;
+  color: var(--eh-primary, #e91e8c);
+  font-size: 21px;
+  box-shadow: 0 6px 16px rgba(233, 30, 140, 0.1);
+}
+#step3 .eh-release-header-content {
+  flex: 1;
+}
+#step3 .eh-release-kicker {
+  margin-bottom: 3px;
+  color: var(--eh-primary, #e91e8c);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+#step3 .eh-release-title {
+  margin: 0;
+  color: #1d2939;
+  font-size: 19px;
+  font-weight: 700;
+}
+#step3 .eh-release-description {
+  margin-top: 4px;
+  color: #8a8a8a;
+  font-size: 11px;
+}
+/* ========================================================= STEP 3 TWO COLUMN CONTENT ========================================================= */
+.eh-step3-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr);
+  gap: 20px;
+  align-items: stretch;
+}
+/* ========================================================= LEFT - REDEMPTION SUMMARY ========================================================= */
+#step3 .eh-redemption-summary-card {
+  position: relative;
+  height: 100%;
+  padding: 18px;
+  margin-bottom: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eaecf0;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.04);
+}
+#step3 .eh-redemption-summary-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--eh-primary, #e91e8c);
+}
+#step3 .eh-summary-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eaecf0;
+}
+#step3 .eh-summary-card-title {
+  color: #1d2939;
+  font-size: 13px;
+  font-weight: 700;
+}
+#step3 .eh-summary-card-subtitle {
+  margin-top: 3px;
+  color: #98a2b3;
+  font-size: 9px;
+}
+#step3 .eh-summary-reference {
+  padding: 5px 9px;
+  background: #fdf1f6;
+  border-radius: 999px;
+  color: var(--eh-primary, #e91e8c);
+  font-size: 8px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+/* SUMMARY DETAILS */
+#step3 .eh-summary-details {
+  padding-top: 8px;
+}
+#step3 .eh-summary-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 8px 0;
+}
+#step3 .eh-summary-detail-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #98a2b3;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+#step3 .eh-summary-detail-label span {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: normal;
+}
+#step3 .eh-summary-detail-value {
+  color: #344054;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: right;
+}
+/* AMOUNT */
+#step3 .eh-summary-amount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 8px;
+  padding: 13px;
+  background: linear-gradient(135deg, #fdf1f6, #fff8fc);
+  border: 1px solid #f8d8e8;
+  border-radius: 14px;
+}
+#step3 .eh-summary-amount-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+#step3 .eh-summary-amount-label strong {
+  color: #344054;
+  font-size: 11px;
+}
+#step3 .eh-summary-amount-label span {
+  color: #98a2b3;
+  font-size: 9px;
+}
+#step3 .eh-summary-amount-value {
+  color: var(--eh-primary, #e91e8c);
+  font-size: 20px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+/* ========================================================= RIGHT - GC SERIAL ========================================================= */
+.eh-step3-right {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+/* SERIAL SECTION */
+#step3 .eh-gc-release-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18px;
+  margin-bottom: 12px;
+  background: #fafafa;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+}
+#step3 .eh-gc-release-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+#step3 .eh-gc-release-heading-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #fdf1f6;
+  color: var(--eh-primary, #e91e8c);
+  font-size: 15px;
+}
+#step3 .eh-gc-release-heading-content {
+  display: flex;
+  flex-direction: column;
+}
+#step3 .eh-gc-release-title {
+  color: #344054;
+  font-size: 12px;
+  font-weight: 700;
+}
+#step3 .eh-gc-release-subtitle {
+  margin-top: 2px;
+  color: #98a2b3;
+  font-size: 9px;
+}
+/* SERIAL INPUT */
+#step3 .eh-serial-input-wrap {
+  position: relative;
+}
+#step3 .eh-serial-input-wrap .eh-input {
+  width: 100%;
+  height: 46px;
+  padding-left: 42px;
+  background: #fff;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+#step3 .eh-serial-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #98a2b3;
+  font-size: 18px;
+  pointer-events: none;
+}
+#step3 .eh-serial-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 9px;
+  color: #98a2b3;
+  font-size: 9px;
+}
+/* ERROR */
+#step3 .eh-error {
+  min-height: 15px;
+  margin-top: 6px;
+  font-size: 10px;
+}
+/* ========================================================= SECURITY NOTE ========================================================= */
+#step3 .eh-release-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 11px 13px;
+  margin-bottom: 0;
+  background: #fffaeb;
+  border: 1px solid #fef0c7;
+  border-radius: 11px;
+}
+#step3 .eh-release-note-icon {
+  color: #f79009;
+  font-size: 15px;
+  line-height: 1.2;
+}
+#step3 .eh-release-note strong {
+  display: block;
+  color: #b54708;
+  font-size: 10px;
+  font-weight: 700;
+}
+#step3 .eh-release-note span {
+  display: block;
+  margin-top: 2px;
+  color: #b54708;
+  font-size: 9px;
+  line-height: 1.4;
+}
+/* ========================================================= STEP 3 ACTIONS ========================================================= */
+.eh-step3-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #eaecf0;
+}
+.eh-step3-actions .eh-btn {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.eh-step3-actions .eh-btn-primary {
+  min-width: 190px;
+  background: var(--eh-primary, #e91e8c);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(233, 30, 140, 0.18);
+}
+/* ========================================================= STEP 4 - SUCCESS COMPACT / NO SCROLL ========================================================= */
+#step4 {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  max-height: calc(100vh - 185px);
+  overflow: hidden;
+}
+#step4 .eh-success-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 28px !important;
+  text-align: center;
+}
+/* SUCCESS ICON */
+#step4 .eh-success-animation {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 9px;
+}
+#step4 .eh-success-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #12b76a;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 22px;
+  box-shadow: 0 8px 18px rgba(18, 183, 106, 0.25);
+}
+#step4 .eh-success-ring {
+  position: absolute;
+  inset: 0;
+  background: #ecfdf3;
+  border-radius: 50%;
+  animation: ehSuccessPulse 2s infinite;
+}
+/* SUCCESS TEXT */
+#step4 .eh-success-kicker {
+  margin-bottom: 4px;
+  color: #12b76a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+#step4 .eh-success-title {
+  margin-bottom: 5px;
+  color: #1d2939;
+  font-size: 20px;
+  font-weight: 700;
+}
+#step4 .eh-success-description {
+  max-width: 570px;
+  margin: 0 auto 13px;
+  color: #8a8a8a;
+  font-size: 11px;
+  line-height: 1.4;
+}
+/* ========================================================= RECEIPT ========================================================= */
+#step4 .eh-redemption-receipt {
+  width: 100%;
+  max-width: 600px;
+  padding: 14px 18px;
+  margin-bottom: 11px;
+  background: #fff;
+  border: 1px solid #eaecf0;
+  border-radius: 15px;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.05);
+}
+#step4 .eh-receipt-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+#step4 .eh-receipt-title {
+  color: #1d2939;
+  font-size: 12px;
+  font-weight: 700;
+}
+#step4 .eh-receipt-subtitle {
+  margin-top: 2px;
+  color: #98a2b3;
+  font-size: 9px;
+}
+#step4 .eh-receipt-success-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+  background: #ecfdf3;
+  border-radius: 999px;
+  color: #12b76a;
+  font-size: 8px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+#step4 .eh-receipt-success-badge svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+#step4 .eh-receipt-divider {
+  height: 1px;
+  margin: 8px 0;
+  background: #eaecf0;
+}
+/* SUCCESS DETAILS */
+#step4 .eh-success-details {
+  width: 100%;
+}
+#step4 .eh-success-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 5px 0;
+  font-size: 11px;
+}
+#step4 .eh-success-row strong {
+  color: #344054;
+  font-size: 11px;
+  text-align: right;
+  word-break: break-word;
+}
+#step4 .eh-success-label {
+  color: #98a2b3;
+  font-size: 9px;
+}
+#step4 .eh-gc-row {
+  padding: 7px 10px !important;
+  margin-top: 3px;
+  background: #fdf1f6;
+  border-radius: 9px;
+}
+#step4 .eh-gc-row strong {
+  color: var(--eh-primary, #e91e8c);
+}
+/* ========================================================= SUCCESS MESSAGE ========================================================= */
+#step4 .eh-success-message {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 12px;
+  margin-bottom: 11px;
+  background: #ecfdf3;
+  border: 1px solid #d1fadf;
+  border-radius: 10px;
+  text-align: left;
+}
+#step4 .eh-success-message-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #12b76a;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 11px;
+}
+#step4 .eh-success-message strong {
+  display: block;
+  color: #027a48;
+  font-size: 10px;
+}
+#step4 .eh-success-message span {
+  display: block;
+  margin-top: 2px;
+  color: #12805c;
+  font-size: 9px;
+}
+/* DONE BUTTON */
+#step4 .eh-done-btn {
+  min-width: 190px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: 700;
+}
+#step4 .eh-success-footer-note {
+  margin-top: 7px;
+  color: #98a2b3;
+  font-size: 9px;
+}
+/* ========================================================= BUTTON TRANSITIONS ========================================================= */
+.eh-btn {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+.eh-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.eh-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+/* ========================================================= RESPONSIVE ========================================================= */
+@media (max-width: 850px) {
+  #step3 {
+    max-height: none;
+    overflow: visible;
+  }
+  .eh-step3-content {
+    grid-template-columns: 1fr;
+  }
+  #step3 .eh-redemption-summary-card {
+    height: auto;
+  }
+  #step3 .eh-gc-release-section {
+    min-height: 180px;
+  }
+  #step4 {
+    max-height: none;
+    overflow: visible;
+  }
+}
+@media (max-width: 640px) {
+  .eh-stepper {
+    gap: 8px;
+  }
+  .eh-stepper-label {
+    display: none;
+  }
+  .eh-step .eh-card-body {
+    padding: 20px;
+  }
+  /* STEP 1 */
+  .eh-step-heading {
+    align-items: flex-start;
+  }
+  .eh-step-title {
+    font-size: 18px;
+  }
+  .eh-search-toggle {
+    flex-direction: column;
+  }
+  .eh-inline-search {
+    flex-direction: column;
+  }
+  .eh-search-btn {
+    width: 100%;
+  }
+  /* STEP 2 */
+  .eh-verify-header {
+    flex-direction: column;
+  }
+  .eh-step-number-badge {
+    align-self: flex-start;
+  }
+  .eh-employee-profile {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .eh-verified-chip {
+    margin-left: 76px;
+  }
+  .eh-employee-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .eh-meta-divider {
+    display: none;
+  }
+  .eh-heart-card-layout {
+    grid-template-columns: 1fr;
+  }
+  .eh-hc-card {
+    min-height: 160px;
+  }
+  /* STEP 3 */
+  #step3 {
+    max-height: none;
+    overflow: visible;
+  }
+  #step3 > .eh-card-body {
+    padding: 20px !important;
+  }
+  #step3 .eh-release-header {
+    align-items: flex-start;
+  }
+  #step3 .eh-summary-card-header {
+    flex-direction: column;
+  }
+  #step3 .eh-summary-detail-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+  #step3 .eh-summary-detail-value {
+    text-align: left;
+  }
+  #step3 .eh-summary-amount {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .eh-step3-actions {
+    flex-direction: column-reverse;
+  }
+  .eh-step3-actions .eh-btn {
+    width: 100%;
+  }
+  .eh-step3-actions .eh-btn-primary {
+    min-width: 0;
+  }
+  /* STEP 4 */
+  #step4 {
+    max-height: none;
+    overflow: visible;
+  }
+  #step4 .eh-success-body {
+    padding: 24px 18px !important;
+  }
+  #step4 .eh-success-title {
+    font-size: 19px;
+  }
+  #step4 .eh-redemption-receipt {
+    padding: 14px;
+  }
+  #step4 .eh-receipt-header {
+    flex-direction: column;
+  }
+  #step4 .eh-success-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+  #step4 .eh-success-row strong {
+    text-align: left;
+  }
+  #step4 .eh-done-btn {
+    width: 100%;
+  }
+  /* GENERAL ACTIONS */
+  .eh-step-actions {
+    flex-direction: column-reverse;
+  }
+  .eh-step-actions .eh-btn {
+    width: 100%;
+  }
+  .eh-proceed-btn {
+    min-width: 0;
+  }
+}
+/* ========================================================= QR SCAN CARD ========================================================= */
+.eh-qr-scan-card {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+}
+.eh-qr-scan-card .eh-label {
+  display: block;
+  margin-bottom: 12px;
+}
+.eh-qr-video-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #111111;
+  border-radius: 16px;
+}
+.eh-qr-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scaleX(1);
+}
+.eh-qr-frame {
+  position: absolute;
+  inset: 14%;
+  border: 3px solid var(--eh-primary, #e91e8c);
+  border-radius: 16px;
+  box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+.eh-qr-status {
+  margin-top: 14px;
+  color: #475467;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+.eh-qr-status.is-error {
+  color: #d92d20;
+}
+.eh-qr-status.is-success {
+  color: #12b76a;
+}
+@media (max-width: 640px) {
+  .eh-qr-video-wrap {
+    max-width: 100%;
+  }
+}

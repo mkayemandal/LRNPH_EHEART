@@ -1,0 +1,20 @@
+.hidden {
+  display: none !important;
+}
+
+.eh-audit-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.eh-audit-user svg {
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: #fce7f3;
+  color: #db2777;
+  flex-shrink: 0;
+}

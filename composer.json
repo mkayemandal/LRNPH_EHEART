@@ -1,0 +1,14 @@
+{
+    "name": "mmandal/eheart",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mariel Kaye Mandal",
+            "email": "mm.kaye30@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^7.1",
+        "endroid/qr-code": "^6.0"
+    }
+}
