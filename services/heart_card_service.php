@@ -8,6 +8,12 @@ class HeartCardService
         return strtoupper(trim($d));
     }
 
+    // outside world need this to bust dept quota cache key. same norm rule.
+    public static function normDeptPublic(string $d): string
+    {
+        return self::normDept($d);
+    }
+
     public static function createRequest(
         array $input,
         string $requesterBiometricId,
@@ -16,15 +22,8 @@ class HeartCardService
 
         $pdo = DB::get_connection();
 
-        $limitStmt = $pdo->prepare(
-            "SELECT setting_value
-         FROM eheart_system_setting
-         WHERE setting_key = 'MANAGER_MONTHLY_REQUEST_LIMIT'"
-        );
-
-        $limitStmt->execute();
-
-        $monthlyLimit = (int) ($limitStmt->fetchColumn() ?: 10);
+        // use cached setting. no raw query, no round trip most the time.
+        $monthlyLimit = (int) self::settingValue('MANAGER_MONTHLY_REQUEST_LIMIT', 10);
 
         $pdo->beginTransaction();
 
@@ -32,7 +31,9 @@ class HeartCardService
 
             $receiverBiometricId = trim((string) ($input['receiver_biometric_id'] ?? ''));
             $receiverDepartment = trim((string) ($input['receiver_department'] ?? ''));
-            $managerDepartment = trim((string) self::getEmployeeDepartment($requesterBiometricId));
+            // $managerDepartment was only used by dead/commented internal-external
+            // quota logic below. cross-server query for nothing, cut it.
+            // if that logic come back, un-comment and call self::getEmployeeDepartment() again.
 
             $lockStmt = $pdo->prepare(
                 "DECLARE @lockResult INT;
@@ -827,15 +828,20 @@ class HeartCardService
         string $key,
         $default = null
     ) {
-        $pdo = DB::get_connection();
-        $stmt = $pdo->prepare(
-            "SELECT setting_value
-             FROM [LRNPH_HR].[dbo].[eheart_system_setting]
-             WHERE setting_key = :key"
-        );
-        $stmt->execute([':key' => $key]);
-        $row = $stmt->fetch();
-        return $row ? $row['setting_value'] : $default;
+        // settings barely change. cache 60s. no DB hit each call.
+        $value = CacheService::remember('eh_setting_' . $key, 60, function () use ($key) {
+            $pdo = DB::get_connection();
+            $stmt = $pdo->prepare(
+                "SELECT setting_value
+                 FROM [LRNPH_HR].[dbo].[eheart_system_setting]
+                 WHERE setting_key = :key"
+            );
+            $stmt->execute([':key' => $key]);
+            $row = $stmt->fetch();
+            return $row ? $row['setting_value'] : null;
+        });
+
+        return $value !== null ? $value : $default;
     }
 
     public static function getManagerMonthlyUsage(
@@ -909,27 +915,53 @@ class HeartCardService
             return [];
         }
 
-        $mePdo = DB::get_connection('lrnph_e');
+        // check cache first. only ask DB for id we don't got yet.
+        $map = [];
+        $missingIds = [];
 
-        $placeholders = [];
-        $params = [];
+        foreach ($uniqueIds as $id) {
+            $cacheKey = 'eh_emp_id_' . $id;
+            $hit = false;
 
-        foreach ($uniqueIds as $i => $id) {
-            $ph = ':bid' . $i;
-            $placeholders[] = $ph;
-            $params[$ph] = $id;
+            if (function_exists('apcu_fetch')) {
+                $val = apcu_fetch($cacheKey, $hit);
+                if ($hit) {
+                    $map[$id] = $val;
+                }
+            }
+
+            if (!$hit) {
+                $missingIds[] = $id;
+            }
         }
 
-        $sql = "SELECT BiometricsID, EmployeeID
-            FROM [LRNPH_E].[dbo].[lrn_master_list]
-            WHERE BiometricsID IN (" . implode(',', $placeholders) . ")";
+        if ($missingIds) {
+            $mePdo = DB::get_connection('lrnph_e');
 
-        $stmt = $mePdo->prepare($sql);
-        $stmt->execute($params);
+            $placeholders = [];
+            $params = [];
 
-        $map = [];
-        foreach ($stmt->fetchAll() as $row) {
-            $map[$row['BiometricsID']] = trim((string) $row['EmployeeID']);
+            foreach ($missingIds as $i => $id) {
+                $ph = ':bid' . $i;
+                $placeholders[] = $ph;
+                $params[$ph] = $id;
+            }
+
+            $sql = "SELECT BiometricsID, EmployeeID
+                FROM [LRNPH_E].[dbo].[lrn_master_list]
+                WHERE BiometricsID IN (" . implode(',', $placeholders) . ")";
+
+            $stmt = $mePdo->prepare($sql);
+            $stmt->execute($params);
+
+            foreach ($stmt->fetchAll() as $row) {
+                $eid = trim((string) $row['EmployeeID']);
+                $map[$row['BiometricsID']] = $eid;
+
+                if (function_exists('apcu_store')) {
+                    apcu_store('eh_emp_id_' . $row['BiometricsID'], $eid, 300);
+                }
+            }
         }
 
         return $map;
@@ -1014,21 +1046,28 @@ class HeartCardService
     public static function getEmployeeDepartment(
         string $employeeBiometricId
     ): ?string {
-        $pdo = DB::get_connection('lrnph_e');
+        // cross-server call. slow. dept change rare, 5 min cache fine.
+        return CacheService::remember(
+            'eh_emp_dept_' . $employeeBiometricId,
+            300,
+            function () use ($employeeBiometricId) {
+                $pdo = DB::get_connection('lrnph_e');
 
-        $stmt = $pdo->prepare("
-            SELECT TOP 1 Department
-            FROM [LRNPH_E].[dbo].[lrn_master_list]
-            WHERE BiometricsID = :bid
-        ");
+                $stmt = $pdo->prepare("
+                    SELECT TOP 1 Department
+                    FROM [LRNPH_E].[dbo].[lrn_master_list]
+                    WHERE BiometricsID = :bid
+                ");
 
-        $stmt->execute([
-            ':bid' => $employeeBiometricId
-        ]);
+                $stmt->execute([
+                    ':bid' => $employeeBiometricId
+                ]);
 
-        $department = trim((string) $stmt->fetchColumn());
+                $department = trim((string) $stmt->fetchColumn());
 
-        return $department !== '' ? $department : null;
+                return $department !== '' ? $department : null;
+            }
+        );
     }
 
     public static function getEmployeeMonthlyUsage(
@@ -1059,27 +1098,28 @@ class HeartCardService
     public static function getDepartmentQuota(
         string $department
     ): ?int {
-        $pdo = DB::get_connection();
+        // quota row change rare. cache per dept, 60s.
+        $cacheKey = 'eh_dept_quota_' . self::normDept($department);
 
-        $stmt = $pdo->prepare("
-        SELECT monthly_quota
-        FROM [LRNPH_HR].[dbo].[eheart_department_quota]
-        WHERE UPPER(LTRIM(RTRIM(REPLACE(department, '-', ' ')))) =
-              UPPER(LTRIM(RTRIM(REPLACE(:department, '-', ' '))))
-          AND is_active = 1
-    ");
+        return CacheService::remember($cacheKey, 60, function () use ($department) {
+            $pdo = DB::get_connection();
 
-        $stmt->execute([
-            ':department' => $department
-        ]);
+            $stmt = $pdo->prepare("
+            SELECT monthly_quota
+            FROM [LRNPH_HR].[dbo].[eheart_department_quota]
+            WHERE UPPER(LTRIM(RTRIM(REPLACE(department, '-', ' ')))) =
+                  UPPER(LTRIM(RTRIM(REPLACE(:department, '-', ' '))))
+              AND is_active = 1
+        ");
 
-        $value = $stmt->fetchColumn();
+            $stmt->execute([
+                ':department' => $department
+            ]);
 
-        if ($value === false) {
-            return null;
-        }
+            $value = $stmt->fetchColumn();
 
-        return (int) $value;
+            return $value === false ? null : (int) $value;
+        });
     }
 
     public static function getManagerQuotaSummary(

@@ -32,6 +32,8 @@ try {
         Response::error('Department quota not found.', 404);
     }
 
+    CacheService::forget('eh_dept_quota_' . HeartCardService::normDeptPublic($department));
+
     AuditService::log(
         $user['biometric_id'],
         'DELETE_DEPARTMENT_QUOTA',

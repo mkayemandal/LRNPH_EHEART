@@ -84,5 +84,8 @@ class SystemSettingService
             ':key' => $key,
             ':value' => (string) $value
         ]);
+
+        // old cached limit dead now. next read get fresh number.
+        CacheService::forget('eh_setting_' . $key);
     }
 }

@@ -64,6 +64,7 @@ require_once __DIR__ . '/date_helper.php';
 require_once __DIR__ . '/logger.php';
 
 /* SERVICES */
+require_once __DIR__ . '/../services/cache_service.php';
 require_once __DIR__ . '/../services/audit_service.php';
 require_once __DIR__ . '/../services/notification_service.php';
 require_once __DIR__ . '/../services/user_service.php';

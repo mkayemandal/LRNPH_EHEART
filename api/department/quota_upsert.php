@@ -53,6 +53,9 @@ try {
 
     $stmt->execute([':dept' => $department, ':quota' => $quota, ':headcount' => $headcount]);
 
+    // wipe stale cached quota. new number show right away.
+    CacheService::forget('eh_dept_quota_' . HeartCardService::normDeptPublic($department));
+
     AuditService::log(
         $user['biometric_id'],
         'UPDATE_DEPARTMENT_QUOTA',
