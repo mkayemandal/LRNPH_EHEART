@@ -302,14 +302,14 @@ $pageTitle = 'Redemption'; ?>
             <!-- ACTIONS -->
             <div class="eh-step-actions eh-verify-actions">
               <button type="button" class="eh-btn eh-btn-outline-pink" id="cancelStep2Btn">
-                <i data-lucide="arrow-left"></i>
+                <!-- <i data-lucide="arrow-left"></i> -->
                 Cancel
               </button>
               <button type="button" class="eh-btn eh-btn-primary eh-proceed-btn" id="proceedStep2Btn">
                 <span>
                   Proceed to Redemption
                 </span>
-                <i data-lucide="arrow-right"></i>
+                <!-- <i data-lucide="arrow-right"></i> -->
               </button>
             </div>
           </div>
@@ -452,7 +452,7 @@ $pageTitle = 'Redemption'; ?>
             <!-- ================================================= ACTIONS ================================================== -->
             <div class="eh-step3-actions">
               <button type="button" id="backStep3Btn" class="eh-btn eh-btn-outline-pink">
-                <i data-lucide="arrow-left"></i>
+                <!-- <i data-lucide="arrow-left"></i> -->
                 Cancel
               </button>
               <button type="button" id="releaseGcBtn" class="eh-btn eh-btn-primary">
@@ -576,7 +576,7 @@ $pageTitle = 'Redemption'; ?>
               <span>
                 Done
               </span>
-              <i data-lucide="arrow-right" class="eh-btn-arrow">
+              <!-- <i data-lucide="arrow-right" class="eh-btn-arrow"> -->
               </i>
             </button>
             <div class="eh-success-footer-note">
