@@ -34,7 +34,7 @@ function ehStatusBadgeClass(statusValue) {
 
 const HeartCardPage = {
   page: 1,
-  pageSize: 12,
+  pageSize: 15,
   filters: { status: '', department: '', date_from: '', date_to: '', q: '' },
   pendingAction: null,
   currentCardData: null,

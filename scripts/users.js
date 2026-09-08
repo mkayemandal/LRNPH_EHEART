@@ -2,7 +2,7 @@ const UsersPage = {
     allUsers: [],
     filters: { q: '', role: '', status: '' },
     page: 1,
-    pageSize: 10,
+    pageSize: 15,
 
     getSearchableText(u) {
         return [u.biometric_id, u.full_name, u.role_name]

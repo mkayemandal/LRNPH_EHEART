@@ -2,7 +2,7 @@ const HistoryPage = {
     allRows: [],
     filters: { q: '', action: '', date_from: '', date_to: '' },
     page: 1,
-    pageSize: 10,
+    pageSize: 15,
 
     apply() {
         const q = this.filters.q.toLowerCase().trim();
