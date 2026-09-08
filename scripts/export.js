@@ -12,6 +12,7 @@ const EHeartExport = {
     statBg: 'F8FAFC',
     border: 'D9D9D9',
     active: { fg: '1E7E34', bg: 'E6F4EA' },
+    approved: { fg: '1E7E34', bg: 'E6F4EA' },
     pending: { fg: 'B8860B', bg: 'FDF1D6' },
     redeemed: { fg: '4338CA', bg: 'E0E7FF' },
     for_redemption: { fg: 'DB2777', bg: 'FCE7F3' },
