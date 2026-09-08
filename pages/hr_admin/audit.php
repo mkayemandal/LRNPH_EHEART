@@ -85,6 +85,7 @@ ksort($roleOptions);
 
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="/eheart/assets/cares_logo.png">
   <title>Audit Logs — eHeart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/eheart/styles/app.css">
@@ -211,7 +212,7 @@ ksort($roleOptions);
 
           <div class="eh-table-footer">
             <div class="eh-table-summary">
-              <span id="auditCount">Showing <span class="eh-page-size-container" id="auditPageSize"></span> of <span id="auditTotalCount"><?= count($logs) ?></span> records</span>
+              <span id="auditCount">Showing <span id="auditShownCount"><?= min(15, count($logs)) ?></span><span class="eh-page-size-container" id="auditPageSize"></span> of <span id="auditTotalCount"><?= count($logs) ?></span> records</span>
             </div>
             <div class="eh-pagination" id="auditPagination">
               <button class="eh-page-btn active">1</button>
