@@ -314,7 +314,7 @@
 }
 
 .eh-heart-card-toolbar .eh-date-field {
-  overflow: hidden;
+  overflow: visible;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -380,7 +380,7 @@
 }
 
 .eh-audit-toolbar .eh-date-field {
-  overflow: hidden;
+  overflow: visible;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -427,7 +427,7 @@
 }
 
 .eh-fluid-toolbar .eh-date-field {
-  overflow: hidden;
+  overflow: visible;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
