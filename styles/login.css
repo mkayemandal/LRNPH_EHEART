@@ -11,7 +11,8 @@ body.eh-login-body {
     var(--eh-pink-50) 100%
   );
   font-family: var(--eh-font);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .eh-login-shell {
   position: relative;
@@ -579,5 +580,149 @@ body.eh-login-body {
   }
   .eh-login-title {
     font-size: 31px;
+  }
+}
+
+/* =========================================================
+   RISING SMOKE PUFFS (visible, blob-morph, no clip/blend bug)
+   ========================================================= */
+body.eh-login-body {
+  position: relative;
+}
+
+.eh-login-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.eh-smoke-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.eh-smoke-puff {
+  position: absolute;
+  bottom: -40px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.55) 45%,
+    rgba(255, 255, 255, 0) 72%
+  );
+  filter: blur(14px);
+  opacity: 0;
+  border-radius: 46% 54% 60% 40% / 55% 45% 55% 45%;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+.puff-1 {
+  left: 6%;
+  width: 240px;
+  height: 260px;
+  animation-name: eh-puff-rise-1;
+  animation-duration: 13s;
+  animation-delay: 0s;
+}
+.puff-2 {
+  left: 30%;
+  width: 190px;
+  height: 210px;
+  animation-name: eh-puff-rise-2;
+  animation-duration: 16s;
+  animation-delay: 3s;
+}
+.puff-3 {
+  left: 55%;
+  width: 260px;
+  height: 280px;
+  animation-name: eh-puff-rise-1;
+  animation-duration: 14s;
+  animation-delay: 6s;
+}
+.puff-4 {
+  left: 75%;
+  width: 200px;
+  height: 220px;
+  animation-name: eh-puff-rise-2;
+  animation-duration: 18s;
+  animation-delay: 1.5s;
+}
+.puff-5 {
+  left: 42%;
+  width: 170px;
+  height: 190px;
+  animation-name: eh-puff-rise-1;
+  animation-duration: 11s;
+  animation-delay: 9s;
+}
+
+@keyframes eh-puff-rise-1 {
+  0% {
+    transform: translate(0, 0) scale(0.6) rotate(0deg);
+    opacity: 0.5;
+    border-radius: 46% 54% 60% 40% / 55% 45% 55% 45%;
+  }
+  6% {
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate(40px, -55vh) scale(1.4) rotate(12deg);
+    opacity: 0.45;
+    border-radius: 60% 40% 45% 55% / 40% 60% 40% 60%;
+  }
+  100% {
+    transform: translate(90px, -115vh) scale(2.1) rotate(22deg);
+    opacity: 0;
+    border-radius: 50% 50% 50% 50%;
+  }
+}
+
+@keyframes eh-puff-rise-2 {
+  0% {
+    transform: translate(0, 0) scale(0.55) rotate(0deg);
+    opacity: 0.45;
+    border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
+  }
+  6% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-45px, -58vh) scale(1.45) rotate(-14deg);
+    opacity: 0.4;
+    border-radius: 40% 60% 55% 45% / 60% 40% 60% 40%;
+  }
+  100% {
+    transform: translate(-95px, -118vh) scale(2.15) rotate(-24deg);
+    opacity: 0;
+    border-radius: 50% 50% 50% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eh-smoke-puff {
+    animation: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .eh-smoke-puff {
+    filter: blur(10px);
+  }
+  .puff-1,
+  .puff-3 {
+    width: 160px;
+    height: 180px;
+  }
+  .puff-2,
+  .puff-4,
+  .puff-5 {
+    width: 130px;
+    height: 150px;
   }
 }

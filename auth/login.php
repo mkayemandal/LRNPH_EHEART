@@ -23,6 +23,15 @@ if (Auth::check()) {
 </head>
 
 <body class="eh-login-body">
+  <!-- Rising smoke background -->
+  <div class="eh-smoke-layer">
+    <div class="eh-smoke-puff puff-1"></div>
+    <div class="eh-smoke-puff puff-2"></div>
+    <div class="eh-smoke-puff puff-3"></div>
+    <div class="eh-smoke-puff puff-4"></div>
+    <div class="eh-smoke-puff puff-5"></div>
+  </div>
+
   <main class="eh-login-shell">
     <!-- LEFT SIDE -->
     <section class="eh-login-hero">
