@@ -269,7 +269,7 @@ const EHCalendar = {
       const now = new Date();
       inst.viewYear = now.getFullYear();
       inst.viewMonth = now.getMonth();
-      this.render(inst);
+      this.pickDay(inst, new Date(now.getFullYear(), now.getMonth(), now.getDate()));
     });
 
     inst.popup.querySelector('[data-action="apply"]')?.addEventListener('click', () => {
