@@ -5,14 +5,18 @@
  * Usage:
  *   EHPagination.render({
  *     container: document.getElementById('cardPagination'),
+ *     pageSizeContainerId: 'cardPageSize',
  *     gotoInputId: 'cardGotoPage',
+ *     gotoPageContainerId: 'cardGotoPageContainer',
  *     totalPages: 10,
  *     currentPage: this.page,
+ *     pageSize: this.pageSize,
+ *     onPageSizeChange: (pageSize) => { this.pageSize = pageSize; this.page = 1; this.render(); },
  *     onChange: (page) => { this.page = page; this.renderRows(...); }
  *   });
  */
 const EHPagination = {
-    render({ container, gotoInputId, totalPages, currentPage, onChange, maxVisible = 3 }) {
+    render({ container, pageSizeContainerId, gotoInputId, gotoPageContainerId, totalPages, currentPage, onChange, pageSize = 15, onPageSizeChange, pageSizeOptions = [10, 15, 20, 25, 50, 100], maxVisible = 3 }) {
         if (!container) return;
 
         totalPages = Math.max(1, totalPages);
@@ -27,6 +31,12 @@ const EHPagination = {
         }
 
         let html = '';
+                html += `
+            <button type="button" class="eh-page-btn eh-page-prev" data-page="${currentPage - 1}" ${currentPage <= 1 ? 'disabled' : ''} aria-label="Previous page">
+                <i data-lucide="chevron-left"></i>
+            </button>
+        `;
+
         for (let i = startPage; i <= endPage; i++) {
             html += `<button type="button" class="eh-page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
         }
@@ -51,30 +61,41 @@ const EHPagination = {
             });
         });
 
-        // GO TO PAGE box (optional — only wired if gotoInputId given and element exists)
-        if (gotoInputId) {
-            const input = document.getElementById(gotoInputId);
-            if (input) {
-                input.max = totalPages;
-                input.value = currentPage;
+        const pageSizeContainer = pageSizeContainerId && document.getElementById(pageSizeContainerId);
+        if (pageSizeContainer && onPageSizeChange) {
+            pageSizeContainer.innerHTML = `
+                <label class="eh-page-size" for="${pageSizeContainerId}Select">
+                    <span class="eh-sr-only">Rows per page</span>
+                    <select class="eh-page-size-select" id="${pageSizeContainerId}Select" aria-label="Rows per page">
+                        ${pageSizeOptions.map(size => `<option value="${size}" ${Number(size) === Number(pageSize) ? 'selected' : ''}>${size}</option>`).join('')}
+                    </select>
+                </label>
+            `;
 
-                // avoid stacking duplicate listeners across re-renders
-                const clone = input.cloneNode(true);
-                input.parentNode.replaceChild(clone, input);
+            pageSizeContainer.querySelector('.eh-page-size-select').addEventListener('change', (event) => {
+                const nextPageSize = Number(event.target.value);
+                if (nextPageSize > 0 && nextPageSize !== Number(pageSize)) onPageSizeChange(nextPageSize);
+            });
+        }
 
-                clone.addEventListener('change', () => {
-                    let page = parseInt(clone.value, 10);
-                    if (!page || page < 1) page = 1;
-                    if (page > totalPages) page = totalPages;
-                    clone.value = page;
-                    if (page === currentPage) return;
-                    onChange(page);
-                });
+        const gotoPageContainer = gotoPageContainerId && document.getElementById(gotoPageContainerId);
+        const gotoInput = gotoInputId && document.getElementById(gotoInputId);
+        if (gotoPageContainer && gotoInput) {
+            gotoInput.max = totalPages;
+            gotoInput.value = currentPage;
 
-                clone.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') clone.blur();
-                });
-            }
+            const clone = gotoInput.cloneNode(true);
+            gotoInput.parentNode.replaceChild(clone, gotoInput);
+            clone.addEventListener('change', () => {
+                let page = parseInt(clone.value, 10);
+                if (!page || page < 1) page = 1;
+                if (page > totalPages) page = totalPages;
+                clone.value = page;
+                if (page !== currentPage) onChange(page);
+            });
+            clone.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') clone.blur();
+            });
         }
 
         if (window.lucide) lucide.createIcons();

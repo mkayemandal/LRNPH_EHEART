@@ -65,11 +65,13 @@ $pageTitle = 'Department Quota';
                     </div>
 
                     <div class="eh-table-footer">
-                        <span id="deptQuotaCount">Showing 0 of 0 departments</span>
+                        <div class="eh-table-summary">
+                            <span id="deptQuotaCount">Showing <span class="eh-page-size-container" id="deptQuotaPageSize"></span> of <span id="deptQuotaTotalCount">0</span> departments</span>
+                        </div>
                         <div class="eh-pagination" id="deptQuotaPagination">
                             <button class="eh-page-btn active">1</button>
                         </div>
-                        <div class="eh-goto-page">
+                        <div class="eh-goto-page" id="deptQuotaGotoPageContainer">
                             <span>Go to page</span>
                             <input type="number" class="eh-goto-input" id="deptQuotaGotoPage" min="1" value="1">
                         </div>

@@ -593,7 +593,6 @@ const HeartCardPage = {
       this.renderRows(this._rowsCache);
 
       const cardCount = document.getElementById('cardCount');
-      const cardCount2 = document.getElementById('cardCount2');
       const cardCount3 = document.getElementById('cardCount3');
 
       if (cardCount) cardCount.textContent = this._rowsCache.length;
@@ -603,12 +602,6 @@ const HeartCardPage = {
       const filtered = q
         ? this._rowsCache.filter(r => this.getSearchableText(r).includes(q))
         : this._rowsCache;
-
-      if (cardCount2) {
-        const start = (this.page - 1) * this.pageSize;
-        const visibleCount = Math.max(0, Math.min(this.pageSize, filtered.length - start));
-        cardCount2.textContent = visibleCount;
-      }
 
       if (cardCount3) cardCount3.textContent = filtered.length;
     } catch (e) { }
@@ -693,10 +686,8 @@ const HeartCardPage = {
       `;
     }).join('');
 
-    const cardCount2 = document.getElementById('cardCount2');
     const cardCount3 = document.getElementById('cardCount3');
 
-    if (cardCount2) cardCount2.textContent = pageRows.length;
     if (cardCount3) cardCount3.textContent = filtered.length;
 
     this.renderPagination(totalPages, filtered.length);
@@ -707,9 +698,17 @@ const HeartCardPage = {
   renderPagination(totalPages, totalRecords) {
     EHPagination.render({
       container: document.getElementById('cardPagination'),
+      pageSizeContainerId: 'cardPageSize',
       gotoInputId: 'cardGotoPage',
+      gotoPageContainerId: 'cardGotoPageContainer',
       totalPages,
       currentPage: this.page,
+      pageSize: this.pageSize,
+      onPageSizeChange: (pageSize) => {
+        this.pageSize = pageSize;
+        this.page = 1;
+        this.renderRows(this._rowsCache || []);
+      },
       onChange: page => {
         this.page = page;
         this.renderRows(this._rowsCache || []);

@@ -132,13 +132,15 @@ require_once __DIR__ . '/../../components/ui/date_range.php';
             </div>
 
             <div class="eh-table-footer">
-              <span>Showing <span id="cardCount2">0</span> of <span id="cardCount3">0</span> request</span>
+              <div class="eh-table-summary">
+                <span>Showing <span class="eh-page-size-container" id="cardPageSize"></span> of <span id="cardCount3">0</span> request</span>
+              </div>
 
               <div class="eh-pagination" id="cardPagination">
                 <button class="eh-page-btn active" type="button">1</button>
               </div>
 
-              <div class="eh-goto-page">
+              <div class="eh-goto-page" id="cardGotoPageContainer">
                 <span>Go to page</span>
                 <input type="number" class="eh-goto-input" id="cardGotoPage" min="1" value="1">
               </div>

@@ -95,7 +95,7 @@ const UsersPage = {
             </tr>
         `;
 
-        document.getElementById('usersCount').textContent = `Showing ${list.length} of ${filtered.length} users`;
+        document.getElementById('usersTotalCount').textContent = filtered.length;
         this.renderPagination(totalPages);
 
         tbody.querySelectorAll('.action-edit').forEach(btn => {
@@ -112,9 +112,17 @@ const UsersPage = {
     renderPagination(totalPages) {
         EHPagination.render({
             container: document.getElementById('usersPagination'),
+            pageSizeContainerId: 'usersPageSize',
             gotoInputId: 'usersGotoPage',
+            gotoPageContainerId: 'usersGotoPageContainer',
             totalPages,
             currentPage: this.page,
+            pageSize: this.pageSize,
+            onPageSizeChange: (pageSize) => {
+                this.pageSize = pageSize;
+                this.page = 1;
+                this.render();
+            },
             onChange: (page) => {
                 this.page = page;
                 this.render();

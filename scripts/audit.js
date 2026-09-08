@@ -59,16 +59,24 @@ const AuditPage = {
             if (window.lucide) lucide.createIcons();
         }
 
-        document.getElementById('auditCount').textContent = `Showing ${pageSet.size} of ${visibleRows.length} records`;
+        document.getElementById('auditTotalCount').textContent = visibleRows.length;
         this.renderPagination(totalPages);
     },
 
     renderPagination(totalPages) {
         EHPagination.render({
             container: document.getElementById('auditPagination'),
+            pageSizeContainerId: 'auditPageSize',
             gotoInputId: 'auditGotoPage',
+            gotoPageContainerId: 'auditGotoPageContainer',
             totalPages,
             currentPage: this.page,
+            pageSize: this.pageSize,
+            onPageSizeChange: (pageSize) => {
+                this.pageSize = pageSize;
+                this.page = 1;
+                this.apply();
+            },
             onChange: (page) => {
                 this.page = page;
                 this.apply();

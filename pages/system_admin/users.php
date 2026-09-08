@@ -102,11 +102,13 @@ foreach ($roles as $r) {
             </table>
           </div>
           <div class="eh-table-footer">
-            <span id="usersCount">Showing 0 of 0 users</span>
+            <div class="eh-table-summary">
+              <span id="usersCount">Showing <span class="eh-page-size-container" id="usersPageSize"></span> of <span id="usersTotalCount">0</span> users</span>
+            </div>
             <div class="eh-pagination" id="usersPagination">
               <button class="eh-page-btn active">1</button>
             </div>
-            <div class="eh-goto-page">
+            <div class="eh-goto-page" id="usersGotoPageContainer">
               <span>Go to page</span>
               <input type="number" class="eh-goto-input" id="usersGotoPage" min="1" value="1">
             </div>

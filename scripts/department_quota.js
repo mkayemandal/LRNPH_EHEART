@@ -86,8 +86,8 @@ const DeptQuotaPage = {
             `).join('');
         }
 
-        const countEl = document.getElementById('deptQuotaCount');
-        if (countEl) countEl.textContent = `Showing ${pageRows.length} of ${filteredRows.length} departments`;
+        const totalCountEl = document.getElementById('deptQuotaTotalCount');
+        if (totalCountEl) totalCountEl.textContent = filteredRows.length;
 
         this.renderPagination(totalPages);
 
@@ -97,9 +97,17 @@ const DeptQuotaPage = {
     renderPagination(totalPages) {
         EHPagination.render({
             container: document.getElementById('deptQuotaPagination'),
+            pageSizeContainerId: 'deptQuotaPageSize',
             gotoInputId: 'deptQuotaGotoPage',
+            gotoPageContainerId: 'deptQuotaGotoPageContainer',
             totalPages,
             currentPage: this.page,
+            pageSize: this.pageSize,
+            onPageSizeChange: (pageSize) => {
+                this.pageSize = pageSize;
+                this.page = 1;
+                this.render();
+            },
             onChange: page => {
                 this.page = page;
                 this.render();

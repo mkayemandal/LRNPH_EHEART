@@ -156,11 +156,13 @@ ksort($actionOptions);
           </div>
 
           <div class="eh-table-footer">
-            <span id="historyCount">Showing <?= count($logs) ?> of <?= count($logs) ?> records</span>
+            <div class="eh-table-summary">
+              <span id="historyCount">Showing <span class="eh-page-size-container" id="historyPageSize"></span> of <span id="historyTotalCount"><?= count($logs) ?></span> records</span>
+            </div>
             <div class="eh-pagination" id="historyPagination">
               <button class="eh-page-btn active">1</button>
             </div>
-            <div class="eh-goto-page">
+            <div class="eh-goto-page" id="historyGotoPageContainer">
               <span>Go to page</span>
               <input type="number" class="eh-goto-input" id="historyGotoPage" min="1" value="1">
             </div>

@@ -54,16 +54,24 @@ const HistoryPage = {
             if (window.lucide) lucide.createIcons();
         }
 
-        document.getElementById('historyCount').textContent = `Showing ${pageSet.size} of ${visibleRows.length} records`;
+        document.getElementById('historyTotalCount').textContent = visibleRows.length;
         this.renderPagination(totalPages);
     },
 
     renderPagination(totalPages) {
         EHPagination.render({
             container: document.getElementById('historyPagination'),
+            pageSizeContainerId: 'historyPageSize',
             gotoInputId: 'historyGotoPage',
+            gotoPageContainerId: 'historyGotoPageContainer',
             totalPages,
             currentPage: this.page,
+            pageSize: this.pageSize,
+            onPageSizeChange: (pageSize) => {
+                this.pageSize = pageSize;
+                this.page = 1;
+                this.apply();
+            },
             onChange: (page) => {
                 this.page = page;
                 this.apply();

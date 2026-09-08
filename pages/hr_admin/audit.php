@@ -210,11 +210,13 @@ ksort($roleOptions);
           </div>
 
           <div class="eh-table-footer">
-            <span id="auditCount">Showing <?= count($logs) ?> of <?= count($logs) ?> records</span>
+            <div class="eh-table-summary">
+              <span id="auditCount">Showing <span class="eh-page-size-container" id="auditPageSize"></span> of <span id="auditTotalCount"><?= count($logs) ?></span> records</span>
+            </div>
             <div class="eh-pagination" id="auditPagination">
               <button class="eh-page-btn active">1</button>
             </div>
-            <div class="eh-goto-page">
+            <div class="eh-goto-page" id="auditGotoPageContainer">
               <span>Go to page</span>
               <input type="number" class="eh-goto-input" id="auditGotoPage" min="1" value="1">
             </div>
