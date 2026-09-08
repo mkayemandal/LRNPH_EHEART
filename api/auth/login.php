@@ -12,13 +12,20 @@ if ($missing) {
 }
 
 $user = UserService::findByBiometricId($input['biometric_id']);
-if (!$user) {
-    Response::error('Invalid biometric ID or account inactive.', 401);
+if (empty($user['is_active']) || (int) $user['is_active'] !== 1) {
+    AuditService::log($user['biometric_id'], 'LOGIN_FAILED', 'auth', null, 'Account inactive');
+    Response::error('This account is inactive. Contact an administrator.', 403);
+}
+
+if (!empty($user['status']) && $user['status'] !== 'active') {
+    AuditService::log($user['biometric_id'], 'LOGIN_FAILED', 'auth', null, 'Account inactive');
+    Response::error('This account is inactive. Contact an administrator.', 403);
 }
 
 // If password_hash is set, verify it. Otherwise (biometric-only orgs), allow through.
 if (!empty($user['password_hash']) && !password_verify($input['password'], $user['password_hash'])) {
-    Response::error('Invalid credentials.', 401);
+    AuditService::log($user['biometric_id'], 'LOGIN_FAILED', 'auth', null, 'Wrong password');
+    Response::error('Wrong password.', 401);
 }
 
 Auth::login($user);

@@ -29,6 +29,10 @@ class UserService
 
         $pdo = DB::get_connection();
 
+        // NOTE: is_active is intentionally NOT filtered here.
+        // We need to still find inactive users so login.php can
+        // tell them apart from "no user at all" and show the
+        // correct error message.
         $stmt = $pdo->prepare("
             SELECT
                 u.user_id,
@@ -43,7 +47,6 @@ class UserService
             INNER JOIN [LRNPH_HR].[dbo].[eheart_role] r
                 ON r.role_id = u.role_id
             WHERE u.biometric_id = :bid
-              AND u.is_active = 1
         ");
 
         $stmt->execute([

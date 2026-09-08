@@ -27,11 +27,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         const json = await res.json();
 
         if (!json.success) {
-            if (res.status === 401) {
-                errBox.textContent = 'Username and password do not match.';
-            } else {
-                errBox.textContent = json.message;
-            }
+            errBox.textContent = json.message || 'Login failed.';
             errBox.style.display = 'block';
             return;
         }
