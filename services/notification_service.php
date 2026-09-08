@@ -18,30 +18,31 @@ class NotificationService
         string $title,
         string $message,
         ?string $refType = null,
-        $refId = null
+        $refId = null,
+        bool $skipEmail = false     // NEW
     ): void {
         try {
             $pdo = DB::get_connection();
 
             $stmt = $pdo->prepare(
                 "INSERT INTO [LRNPH_HR].[dbo].[eheart_notification]
-                (
-                    recipient_biometric_id,
-                    notification_type,
-                    title,
-                    message,
-                    reference_type,
-                    reference_id
-                )
-                VALUES
-                (
-                    :recipient,
-                    :type,
-                    :title,
-                    :message,
-                    :refType,
-                    :refId
-                )"
+            (
+                recipient_biometric_id,
+                notification_type,
+                title,
+                message,
+                reference_type,
+                reference_id
+            )
+            VALUES
+            (
+                :recipient,
+                :type,
+                :title,
+                :message,
+                :refType,
+                :refId
+            )"
             );
 
             $stmt->execute([
@@ -53,14 +54,16 @@ class NotificationService
                 ':refId' => $refId,
             ]);
 
-            self::sendEmail(
-                $recipientBiometricId,
-                $type,
-                $title,
-                $message,
-                $refType,
-                $refId
-            );
+            if (!$skipEmail) {       // NEW guard
+                self::sendEmail(
+                    $recipientBiometricId,
+                    $type,
+                    $title,
+                    $message,
+                    $refType,
+                    $refId
+                );
+            }
         } catch (Throwable $e) {
             error_log('Notification send failed: ' . $e->getMessage());
         }
@@ -95,7 +98,6 @@ class NotificationService
                 $roleNames
             );
 
-            // Keep notification role codes aligned with the labels stored in eheart_role.
             $roleCodes = array_values(array_unique(array_merge(
                 $roleCodes,
                 in_array('SYSTEM_ADMIN', $roleCodes, true)
@@ -108,30 +110,45 @@ class NotificationService
                 array_fill(0, count($roleCodes), '?')
             );
 
+            // CHANGED: also grab u.email now, need it for dedup below
             $stmt = $pdo->prepare(
-                "SELECT u.biometric_id
-                 FROM [LRNPH_HR].[dbo].[eheart_user] u
-                 INNER JOIN [LRNPH_HR].[dbo].[eheart_role] r
-                    ON r.role_id = u.role_id
-                 WHERE u.is_active = 1
-                   AND r.is_active = 1
-                   AND REPLACE(UPPER(LTRIM(RTRIM(r.role_name))), ' ', '_')
-                       IN ($placeholders)"
+                "SELECT u.biometric_id, u.email
+             FROM [LRNPH_HR].[dbo].[eheart_user] u
+             INNER JOIN [LRNPH_HR].[dbo].[eheart_role] r
+                ON r.role_id = u.role_id
+             WHERE u.is_active = 1
+               AND r.is_active = 1
+               AND REPLACE(UPPER(LTRIM(RTRIM(r.role_name))), ' ', '_')
+                   IN ($placeholders)"
             );
 
             $stmt->execute($roleCodes);
 
-            $recipients = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            $recipients = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            foreach ($recipients as $recipientBiometricId) {
+            $emailedAddresses = [];   // NEW: track email already sent this batch
+
+            foreach ($recipients as $recipient) {
+                $recipientBiometricId = $recipient['biometric_id'];
+
+                $normalizedEmail = strtolower(trim((string) ($recipient['email'] ?? '')));
+
+                $skipEmail = $normalizedEmail !== ''
+                    && isset($emailedAddresses[$normalizedEmail]);
+
                 self::send(
                     $recipientBiometricId,
                     $type,
                     $title,
                     $message,
                     $refType,
-                    $refId
+                    $refId,
+                    $skipEmail          // NEW arg
                 );
+
+                if ($normalizedEmail !== '') {
+                    $emailedAddresses[$normalizedEmail] = true;
+                }
             }
         } catch (Throwable $e) {
             error_log('Role notification send failed: ' . $e->getMessage());
