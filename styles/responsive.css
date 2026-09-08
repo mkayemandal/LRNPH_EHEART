@@ -18,6 +18,12 @@
    MEDIA QUERIES
    ===================================================================== */
 
+/* ---------- Table/panel "bleed" no longer needs a hand-recalculated
+   override per breakpoint here: table.css now writes it as a single
+   calc() driven by --eh-content-pad-x (redefined per breakpoint in
+   app.css) and --eh-topbar-margin-l/r (redefined per breakpoint in
+   topbar.css), so it self-adjusts and can't drift out of sync. ---------- */
+
 /* ---------- LAPTOP-LG (<=1300px) ---------- */
 @media (max-width: 1300px) {
   .eh-dashboard-stat-grid.manager-grid,
@@ -34,6 +40,43 @@
   /* sidebar-driven layout */
   .eh-layout-split.with-panel {
     grid-template-columns: 1fr;
+  }
+
+  .eh-layout-split.with-panel.panel-open {
+    grid-template-columns: 1fr;
+  }
+
+  #requestPanel {
+    position: fixed;
+    top: calc(
+      var(--eh-topbar-margin-t) + var(--eh-topbar-height) +
+        var(--eh-space-2, 8px)
+    );
+    right: var(--eh-topbar-margin-r);
+    bottom: var(--eh-topbar-margin-r);
+    width: min(
+      380px,
+      calc(100vw - var(--eh-topbar-margin-l) - var(--eh-topbar-margin-r))
+    );
+    z-index: 200;
+    overflow-y: auto;
+    border-radius: var(--eh-radius-lg, 14px);
+    box-shadow: -6px 0 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .eh-table-toolbar {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .eh-filter-group {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .eh-filter-group > .eh-search,
+  .eh-filter-group > .eh-search-wrap {
+    flex-basis: clamp(190px, 24vw, 260px);
   }
 
   /* dashboard */
@@ -59,6 +102,11 @@
   /* sidebar becomes an off-canvas drawer; main takes full width */
   .eh-sidebar {
     transform: translateX(-105%);
+    z-index: 200;
+  }
+
+  .eh-sidebar.open {
+    transform: translateX(0);
   }
   .eh-main {
     margin-left: 0 !important;
@@ -69,9 +117,10 @@
     display: inline-flex;
   }
 
-  .eh-topbar {
-    margin: 6px 6px 0 6px;
-  }
+  /* Topbar's tighter margin at this breakpoint is now set once, via
+     --eh-topbar-margin-t/r/l, in topbar.css's own 900px block — the
+     table/panel bleed and the heart-card mobile drawer read the same
+     variables, so nothing here needs to duplicate the value. */
 
   .eh-dashboard-header {
     align-items: flex-start;
@@ -201,5 +250,304 @@
   .eh-success-title,
   .eh-release-title {
     font-size: 17px !important;
+  }
+}
+
+/* =====================================================================
+   TABLE TOOLBAR: TITLE ALWAYS LEFT, FILTERS ALWAYS RIGHT
+   Applies to every .eh-table-toolbar (users, heart card, audit,
+   department quota, history). This file loads last on every page, so
+   these rules win over any page-specific toolbar CSS. The `order`
+   properties are a safety net — the title block can never end up
+   after the filters/actions even if a page's markup or another
+   stylesheet says otherwise.
+   ===================================================================== */
+.eh-table-toolbar > .eh-title-block {
+  order: 1;
+}
+.eh-table-toolbar > .eh-filter-group,
+.eh-table-toolbar > .eh-toolbar-actions {
+  order: 2;
+}
+
+.eh-heart-card-toolbar {
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: clamp(6px, 0.7vw, 12px);
+}
+
+.eh-heart-card-toolbar > .eh-title-block {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.eh-heart-card-toolbar > .eh-filter-group {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: clamp(6px, 0.7vw, 12px);
+}
+
+.eh-heart-card-toolbar .eh-search {
+  flex: 0 1 clamp(110px, 16vw, 190px);
+  width: clamp(110px, 16vw, 190px);
+  min-width: 0;
+}
+
+.eh-heart-card-toolbar .eh-filter {
+  flex: 0 1 clamp(78px, 9vw, 125px);
+  width: clamp(78px, 9vw, 125px);
+  min-width: 0;
+}
+
+.eh-heart-card-toolbar .eh-date-range {
+  flex: 0 1 clamp(125px, 13vw, 165px);
+  width: clamp(125px, 13vw, 165px);
+  min-width: 0;
+}
+
+.eh-heart-card-toolbar .eh-search-input,
+.eh-heart-card-toolbar .eh-filter-select,
+.eh-heart-card-toolbar .eh-date-field {
+  min-width: 0;
+  width: 100%;
+}
+
+.eh-heart-card-toolbar .eh-date-field {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eh-heart-card-toolbar .eh-btn {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 0.72rem;
+}
+
+.eh-audit-toolbar {
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: clamp(6px, 0.7vw, 12px);
+}
+
+.eh-audit-toolbar > .eh-title-block {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.eh-audit-toolbar > .eh-filter-group {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: clamp(6px, 0.7vw, 12px);
+}
+
+.eh-audit-toolbar .eh-search,
+.eh-audit-toolbar .eh-filter,
+.eh-audit-toolbar .eh-date-range {
+  min-width: 0;
+}
+
+.eh-audit-toolbar .eh-search,
+.eh-fluid-toolbar .eh-search {
+  flex: 0 1 clamp(var(--eh-search-min-w), 22vw, var(--eh-search-max-w));
+  width: clamp(var(--eh-search-min-w), 22vw, var(--eh-search-max-w));
+}
+
+.eh-audit-toolbar .eh-filter,
+.eh-fluid-toolbar .eh-filter {
+  flex: 0 1 clamp(var(--eh-filter-min-w), 12vw, var(--eh-filter-max-w));
+  width: clamp(var(--eh-filter-min-w), 12vw, var(--eh-filter-max-w));
+}
+
+.eh-audit-toolbar .eh-date-range,
+.eh-fluid-toolbar .eh-date-range {
+  flex: 0 1 clamp(125px, 13vw, 170px);
+  width: clamp(125px, 13vw, 170px);
+}
+
+.eh-audit-toolbar .eh-search-input,
+.eh-audit-toolbar .eh-filter-select,
+.eh-audit-toolbar .eh-date-field {
+  width: 100%;
+  min-width: 0;
+}
+
+.eh-audit-toolbar .eh-date-field {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eh-audit-toolbar .eh-clear-filters-btn {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eh-fluid-toolbar {
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: clamp(6px, 0.7vw, 12px);
+}
+
+.eh-fluid-toolbar > .eh-title-block {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.eh-fluid-toolbar > .eh-filter-group,
+.eh-fluid-toolbar > .eh-toolbar-actions {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: clamp(6px, 0.7vw, 12px);
+  min-width: 0;
+}
+
+.eh-fluid-toolbar .eh-search,
+.eh-fluid-toolbar .eh-filter,
+.eh-fluid-toolbar .eh-date-range {
+  min-width: 0;
+}
+
+.eh-fluid-toolbar .eh-search-input,
+.eh-fluid-toolbar .eh-filter-select,
+.eh-fluid-toolbar .eh-date-field {
+  width: 100%;
+  min-width: 0;
+}
+
+.eh-fluid-toolbar .eh-date-field {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eh-fluid-toolbar .eh-btn,
+.eh-fluid-toolbar .eh-clear-filters-btn {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) and (min-width: 641px) {
+  .eh-fluid-toolbar {
+    flex-wrap: nowrap;
+  }
+
+  .eh-fluid-toolbar > .eh-filter-group,
+  .eh-fluid-toolbar > .eh-toolbar-actions {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .eh-fluid-toolbar > .eh-filter-group,
+  .eh-fluid-toolbar > .eh-toolbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1100px) and (min-width: 641px) {
+  .eh-audit-toolbar {
+    flex-wrap: nowrap;
+  }
+
+  .eh-audit-toolbar > .eh-filter-group {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (min-width: 1101px) {
+  #splitLayout.panel-open {
+    grid-template-columns: minmax(0, 1fr) 380px;
+  }
+
+  #splitLayout.panel-open > #requestPanel {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 900px) and (min-width: 641px) {
+  .eh-heart-card-toolbar {
+    gap: 8px;
+  }
+
+  .eh-heart-card-toolbar > .eh-title-block {
+    min-width: 160px;
+  }
+
+  .eh-heart-card-toolbar > .eh-filter-group {
+    gap: 8px;
+  }
+
+  .eh-heart-card-toolbar .eh-search {
+    flex-basis: 94px;
+    width: 94px;
+  }
+
+  .eh-heart-card-toolbar .eh-filter {
+    flex-basis: 66px;
+    width: 66px;
+  }
+
+  .eh-heart-card-toolbar .eh-date-range {
+    flex-basis: 101px;
+    width: 101px;
+  }
+
+  .eh-heart-card-toolbar .eh-btn {
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 0.68rem;
+  }
+
+  .eh-heart-card-toolbar #newRequestBtn {
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 0.62rem;
+  }
+}
+
+/* Small screens: title stacks above filters, full width, on every
+   table page — including ones (like department quota) that keep
+   `flex-wrap: nowrap` down to a narrower breakpoint of their own. */
+@media (max-width: 640px) {
+  .eh-table-toolbar,
+  .eh-quota-page .eh-table-toolbar {
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .eh-table-toolbar > .eh-title-block,
+  .eh-table-toolbar > .eh-filter-group,
+  .eh-table-toolbar > .eh-toolbar-actions {
+    flex: 1 1 100%;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .eh-heart-card-toolbar {
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+
+  .eh-heart-card-toolbar > .eh-filter-group {
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 }

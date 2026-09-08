@@ -64,7 +64,7 @@
   width: 20px;
   height: 20px;
 }
-.eh-table-toolbar {
+.eh-quota-page .eh-table-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -402,10 +402,10 @@
   }
 }
 @media (max-width: 560px) {
-  .eh-table-toolbar {
+  .eh-quota-page .eh-table-toolbar {
     flex-wrap: wrap;
   }
-  .eh-title-block {
+  .eh-quota-page .eh-title-block {
     flex: 1 1 100%;
   }
   .eh-toolbar-actions {

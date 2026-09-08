@@ -950,15 +950,28 @@
     grid-template-columns: 1fr;
   }
 
+  /* The request panel becomes a floating drawer on tablet/mobile.
+     It's inset from the viewport by the SAME variables the topbar
+     uses for its own margin (--eh-topbar-margin-t/r, set in
+     topbar.css), so its top and right edges always line up with the
+     topbar's top and right edges instead of sitting flush against
+     the raw viewport edge. */
   #requestPanel {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: min(380px, 100vw);
+    top: calc(
+      var(--eh-topbar-margin-t) + var(--eh-topbar-height) +
+        var(--eh-space-2, 8px)
+    );
+    right: var(--eh-topbar-margin-r);
+    bottom: var(--eh-topbar-margin-r);
+    width: min(
+      380px,
+      calc(100vw - var(--eh-topbar-margin-l) - var(--eh-topbar-margin-r))
+    );
     z-index: 200;
     background: #fff;
     overflow-y: auto;
+    border-radius: var(--eh-radius-lg, 14px);
     box-shadow: -6px 0 24px rgba(0, 0, 0, 0.15);
   }
 }
@@ -989,10 +1002,6 @@
 }
 
 @media (max-width: 640px) {
-  #requestPanel {
-    width: 100vw;
-  }
-
   .eh-table-footer {
     flex-direction: column;
     gap: 8px;

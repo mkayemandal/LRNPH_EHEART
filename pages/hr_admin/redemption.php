@@ -118,8 +118,6 @@ $pageTitle = 'Redemption'; ?>
                   <span>
                     Search
                   </span>
-                  <i data-lucide="arrow-right" class="eh-btn-arrow">
-                  </i>
                 </button>
               </div>
               <div class="eh-search-hint">

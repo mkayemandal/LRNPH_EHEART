@@ -59,7 +59,7 @@ require_once __DIR__ . '/../../components/ui/date_range.php';
       <div class="eh-content">
         <div class="eh-layout-split <?= in_array($role, ['MANAGER', 'HR_ADMIN', 'SYSTEM_ADMIN'], true) ? 'with-panel' : '' ?>" id="splitLayout">
           <div class="eh-table-wrap">
-            <div class="eh-table-toolbar">
+            <div class="eh-table-toolbar eh-heart-card-toolbar">
               <div class="eh-title-block">
                 <span class="eh-title-icon"><i data-lucide="heart"></i></span>
                 <div>

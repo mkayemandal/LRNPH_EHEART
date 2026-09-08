@@ -26,9 +26,9 @@ $pageTitle = 'Department Quota';
         <?php require __DIR__ . '/../../components/layout/sidebar.php'; ?>
         <div class="eh-main">
             <?php require __DIR__ . '/../../components/layout/topbar.php'; ?>
-            <div class="eh-content">
+            <div class="eh-content eh-quota-page">
                 <div class="eh-table-wrap">
-                    <div class="eh-table-toolbar">
+                    <div class="eh-table-toolbar eh-fluid-toolbar">
                         <div class="eh-title-block">
                             <span class="eh-title-icon"><i data-lucide="building-2"></i></span>
                             <div>

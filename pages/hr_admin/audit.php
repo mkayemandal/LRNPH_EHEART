@@ -104,7 +104,7 @@ ksort($roleOptions);
       <?php require __DIR__ . '/../../components/layout/topbar.php'; ?>
       <div class="eh-content">
         <div class="eh-table-wrap">
-          <div class="eh-table-toolbar">
+          <div class="eh-table-toolbar eh-audit-toolbar">
 
             <div class="eh-title-block">
               <span class="eh-title-icon"><i data-lucide="scroll-text"></i></span>

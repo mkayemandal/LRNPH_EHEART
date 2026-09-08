@@ -1,11 +1,9 @@
-:root {
-  --eh-topbar-height: 60px;
-}
 .eh-topbar {
   position: sticky;
   top: 8px;
   height: var(--eh-topbar-height);
-  margin: 8px 12px 0 8px;
+  margin: var(--eh-topbar-margin-t) var(--eh-topbar-margin-r) 0
+    var(--eh-topbar-margin-l);
   padding: 0 var(--eh-space-5, 20px);
   box-sizing: border-box;
   background: #fff;
@@ -767,6 +765,12 @@
 }
 
 @media (max-width: 900px) {
+  :root {
+    --eh-topbar-margin-t: 6px;
+    --eh-topbar-margin-r: 6px;
+    --eh-topbar-margin-l: 6px;
+  }
+
   .eh-guide-content {
     padding: 38px 35px;
   }

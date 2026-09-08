@@ -8,10 +8,25 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
 }
 
+/* Bleed the table/panel card so its left/right edges line up with the
+   topbar's edges. The topbar's margin is asymmetric (narrower on the
+   right than the left/top — see topbar.css), so this bleed is
+   deliberately asymmetric too, not a symmetric "full bleed to the
+   viewport". Written as a calc() against the same variables that
+   drive .eh-content's own padding (--eh-content-pad-x, set in
+   app.css) and the topbar's margin (--eh-topbar-margin-l/r, set in
+   topbar.css) so it self-adjusts at every breakpoint — including
+   ones added later — instead of needing a hand-recalculated copy
+   per breakpoint. */
 .eh-content > .eh-table-wrap,
 .eh-content > .eh-layout-split {
-  width: calc(100% + 28px);
-  margin-left: -16px;
+  width: calc(
+    100% + (var(--eh-content-pad-x) - var(--eh-topbar-margin-l)) +
+      (var(--eh-content-pad-x) - var(--eh-topbar-margin-r))
+  );
+  margin-left: calc(
+    -1 * (var(--eh-content-pad-x) - var(--eh-topbar-margin-l))
+  );
 }
 
 .eh-table-wrap .eh-table-toolbar {
@@ -393,16 +408,10 @@
     margin-left: 0;
   }
 
-  .eh-layout-split.with-panel {
-    flex-direction: column;
-  }
   .eh-panel {
     width: 100%;
     max-width: 100%;
     position: relative;
-  }
-  .eh-table-wrap {
-    width: 100%;
   }
 }
 

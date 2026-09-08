@@ -29,12 +29,12 @@
   --eh-font:
     "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  --eh-fs-xs: 0.75rem;
-  --eh-fs-sm: 0.8125rem;
-  --eh-fs-base: 0.875rem;
-  --eh-fs-lg: 1rem;
-  --eh-fs-xl: 1.25rem;
-  --eh-fs-2xl: 1.5rem;
+  --eh-fs-xs: 0.70rem;
+  --eh-fs-sm: 0.75rem;
+  --eh-fs-base: 0.80rem;
+  --eh-fs-lg: 0.95rem;
+  --eh-fs-xl: 1.15rem;
+  --eh-fs-2xl: 1.4rem;
   --eh-fw-regular: 400;
   --eh-fw-medium: 500;
   --eh-fw-semibold: 600;
@@ -65,16 +65,14 @@
   --eh-sidebar-collapsed-width: 72px;
   --eh-sidebar-left: 8px;
   --eh-sidebar-gap: 14px;
-  --eh-topbar-height: 64px;
+  --eh-topbar-height: 60px;
 
-  /* =========================================================
-     RESPONSIVE BREAKPOINT TOKENS
-     Used as reference values inside media queries throughout
-     the app. CSS custom properties cannot be used as the
-     condition of a media query, but keeping the numbers here
-     means every stylesheet references the same scale instead
-     of scattering random pixel values.
-     ========================================================= */
+  --eh-topbar-margin-t: 8px;
+  --eh-topbar-margin-r: 12px;
+  --eh-topbar-margin-l: 8px;
+
+  --eh-content-pad-x: var(--eh-space-6);
+
   --eh-bp-mobile: 480px; /* small phones            */
   --eh-bp-mobile-lg: 640px; /* large phones            */
   --eh-bp-tablet: 900px; /* tablets / small laptops */
@@ -82,8 +80,6 @@
   --eh-bp-laptop-lg: 1300px; /* small desktops        */
   --eh-bp-desktop: 1440px; /* large desktops          */
 
-  /* Fluid control sizing — filters/inputs shrink with the
-     viewport instead of holding a fixed px width. */
   --eh-control-h: 38px;
   --eh-filter-min-w: 96px;
   --eh-filter-max-w: 190px;
